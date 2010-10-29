@@ -5,7 +5,7 @@ class RequestDSL:
 
     def __init__ (self, uri):
         self.uri = uri
-        self.processors = [ExecuteRequestProcessor(), PayloadMarshallingProcessor()]
+        self.processors = [PayloadMarshallingProcessor(), ExecuteRequestProcessor()]
         self.headers = {}
 
     def use(self, feature):

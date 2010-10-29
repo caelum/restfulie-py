@@ -30,7 +30,6 @@ class PlainConverter:
     def marshal(self, content):
         return content
 
-
 Converters.register("application/xml", XmlConverter())
 Converters.register("text/xml", XmlConverter())
 Converters.register("xml", XmlConverter())
