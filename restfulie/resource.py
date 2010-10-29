@@ -1,4 +1,4 @@
-class Resource (object):
+class Resource:
 
     def __init__(self, response):
         self.response = response

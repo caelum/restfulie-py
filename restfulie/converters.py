@@ -1,4 +1,4 @@
-class Converters (object):
+class Converters:
 
     types = {}
 
@@ -13,11 +13,11 @@ class Converters (object):
         else:
             return None
 
-class GenericMarshaller (object):
+class GenericMarshaller:
     def marshall(self, content):
         pass
 
-class XmlConverter (object):
+class XmlConverter:
     def marshal(self, content):
         """
         content eh um hash
@@ -26,7 +26,7 @@ class XmlConverter (object):
         """
         pass
 
-class PlainConverter (object):
+class PlainConverter:
     def marshal(self, content):
         return content
 

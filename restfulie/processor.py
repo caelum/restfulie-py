@@ -2,10 +2,10 @@ import httplib
 from resource import Resource
 from converters import Converters, GenericMarshaller
 
-class RequestProcessor (object):
+class RequestProcessor:
     pass
 
-class ExecuteRequestProcessor (RequestProcessor):
+class ExecuteRequestProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         connection = httplib.HTTPConnection(request.uri)
@@ -19,7 +19,7 @@ class ExecuteRequestProcessor (RequestProcessor):
 
         return resource
 
-class PayloadMarshallingProcessor (RequestProcessor):
+class PayloadMarshallingProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         if "payload" in env:

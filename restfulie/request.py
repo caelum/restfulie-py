@@ -1,7 +1,7 @@
 from processor import ExecuteRequestProcessor, PayloadMarshallingProcessor
 from parser import Parser
 
-class RequestDSL (object):
+class RequestDSL:
 
     def __init__ (self, uri):
         self.uri = uri

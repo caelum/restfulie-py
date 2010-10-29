@@ -1,6 +1,6 @@
 from request import RequestDSL
 
-class Restfulie (object):
+class Restfulie:
 
     @staticmethod
     def at(uri):
