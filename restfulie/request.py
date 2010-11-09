@@ -27,6 +27,14 @@ class RequestDSL:
     def post(self, payload):
         self.verb = "POST"
         return self.process_flow(env={'payload':payload})
+    
+    def patch(self, payload):
+        self.verb = "PATCH"
+        return self.process_flow(env={'payload':payload})
+    
+    def put(self, payload):
+        self.verb = "PUT"
+        return self.process_flow(env={'paylaod':payload})
 
     def process_flow(self, env={}):
         procs = list(self.processors)
