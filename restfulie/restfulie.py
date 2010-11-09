@@ -1,7 +1,7 @@
-from request import RequestDSL
+from dsl import Dsl
 
 class Restfulie:
 
     @staticmethod
     def at(uri):
-        return RequestDSL(uri)
+        return Dsl(uri)

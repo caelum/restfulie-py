@@ -1,6 +1,5 @@
 from restfulie.parser import Parser
 from restfulie.processor import ExecuteRequestProcessor
-from restfulie.request import RequestDSL
 
 from mockito import *
 

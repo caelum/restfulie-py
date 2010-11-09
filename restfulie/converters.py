@@ -15,7 +15,7 @@ class Converters:
 
 class GenericMarshaller:
     def marshall(self, content):
-        pass
+        return content
 
 class XmlConverter:
     def marshal(self, content):
