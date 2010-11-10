@@ -1,0 +1,22 @@
+h1. Restfulie-py
+
+h2. Executing tests
+
+Before running the tests you have to install "python-nose":http://code.google.com/p/python-nose/ and "mockito-python":http://code.google.com/p/mockito-python/.
+
+On Linux:
+
+Install Easy Install for Python (in case you don't have it)
+@$sudo apt-get install python-setuptools python-dev build-essential@
+
+Mockito-Python:
+@$sudo easy_install mockito@
+
+Python-nose:
+@$sudo apt-get install python-nose@
+
+h2. Running tests
+
+On project root, run:
+
+@$nosetests@

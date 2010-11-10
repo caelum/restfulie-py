@@ -23,15 +23,15 @@ class Dsl:
     def delete(self):
         self.verb = "DELETE"
         return self.process_flow()
-    
+
     def head(self):
         self.verb = "HEAD"
         return self.process_flow()
-    
+
     def trace(self):
         self.verb = "TRACE"
         return self.process_flow()
-    
+
     def options(self):
         self.verb = "OPTIONS"
         return self.process_flow()
@@ -39,15 +39,15 @@ class Dsl:
     def post(self, payload):
         self.verb = "POST"
         return self.process_flow(env={'payload':payload})
-    
+
     def patch(self, payload):
         self.verb = "PATCH"
         return self.process_flow(env={'payload':payload})
-    
+
     def put(self, payload):
         self.verb = "PUT"
         return self.process_flow(env={'paylaod':payload})
-    
+
     def process_flow(self, env={}):
         procs = list(self.processors)
         return Parser(procs).follow(self, env)
