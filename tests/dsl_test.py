@@ -13,7 +13,7 @@ class dsl_test:
 
     def test_configure_content_type(self):
         self.dsl.typed("content")
-        assert self.dsl.headers["Content-type"] == "content"
+        assert self.dsl.headers["Content-Type"] == "content"
 
     def test_configure_get(self):
         self.dsl.process_flow = lambda:[]
