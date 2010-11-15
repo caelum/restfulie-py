@@ -11,11 +11,8 @@ class Converters:
         if a_type in Converters.types:
             return Converters.types[a_type]
         else:
-            return GenericMarshaller()
+            return PlainConverter()
 
-class GenericMarshaller:
-    def marshall(self, content):
-        return content
 
 class XmlConverter:
     def marshal(self, content):

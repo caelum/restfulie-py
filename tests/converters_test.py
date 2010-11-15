@@ -14,7 +14,7 @@ class converters_test:
     def test_marshaller_for(self):
         print Converters.marshaller_for("text/plain")
 
-        assert Converters.marshaller_for("text/plain") == None
+        assert Converters.marshaller_for("application/xml").__class__ == PlainConverter().__class__
         converter = PlainConverter()
         Converters.register("text/plain", converter)
         assert Converters.marshaller_for("text/plain") == converter

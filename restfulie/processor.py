@@ -1,6 +1,6 @@
 import httplib2
 from resource import Resource
-from converters import Converters, GenericMarshaller
+from converters import Converters, PlainConverter
 
 class RequestProcessor:
     pass
@@ -26,7 +26,7 @@ class PayloadMarshallingProcessor(RequestProcessor):
             if "Content-type" in request.headers:
                 marshaller = Converters.marshaller_for(request.headers["Content-type"])
             else:
-                marshaller = GenericMarshaller()
+                marshaller = PlainConverter()
             env["body"] = marshaller.marshal(env["payload"])
             del(env["payload"])
 
