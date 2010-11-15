@@ -7,13 +7,14 @@ class RequestProcessor:
 
 class ExecuteRequestProcessor(RequestProcessor):
 
-    def execute(self, chain, request, env={}):
-        http = httplib2.Http()
+    def __init__(self):
+        self.http = httplib2.Http()
 
+    def execute(self, chain, request, env={}):
         if "body" in env:
-            response = http.request(request.uri, request.verb, env["body"], request.headers)
+            response = self.http.request(request.uri, request.verb, env["body"], request.headers)
         else:
-            response = http.request(request.uri, request.verb, headers=request.headers)
+            response = self.http.request(request.uri, request.verb, headers=request.headers)
 
         resource = Resource(response)
 
