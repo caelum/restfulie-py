@@ -1,8 +1,9 @@
 class Resource:
 
     def __init__(self, response):
+
         self.response = response
 
-        self.body = self.response.read()
-        self.code = self.response.status
+        self.code = self.response[0]['status']
+        self.body = self.response[1]
 

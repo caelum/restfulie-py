@@ -1,4 +1,4 @@
-import httplib
+import httplib2
 from resource import Resource
 from converters import Converters, GenericMarshaller
 
@@ -8,14 +8,14 @@ class RequestProcessor:
 class ExecuteRequestProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
-        connection = httplib.HTTPConnection(request.uri)
+        http = httplib2.Http()
 
         if "body" in env:
-            connection.request(request.verb, "/", env["body"], request.headers)
+            response = http.request(request.uri, request.verb, env["body"], request.headers)
         else:
-            connection.request(request.verb, "/", headers=request.headers)
+            response = http.request(request.uri, request.verb, headers=request.headers)
 
-        resource = Resource(connection.getresponse())
+        resource = Resource(response)
 
         return resource
 
@@ -23,7 +23,10 @@ class PayloadMarshallingProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         if "payload" in env:
-            marshaller = Converters.marshaller_for(request.headers["Content-type"]) or GenericMarshaller()
+            if "Content-type" in request.headers:
+                marshaller = Converters.marshaller_for(request.headers["Content-type"])
+            else:
+                marshaller = GenericMarshaller()
             env["body"] = marshaller.marshal(env["payload"])
             del(env["payload"])
 
