@@ -13,7 +13,11 @@ class Dsl:
         return self
 
     def typed(self, content_type):
-        self.headers["Content-type"] = content_type
+        self.headers["Content-Type"] = content_type
+        return self
+
+    def accepts(self, content_type):
+        self.headers['Accept'] = content_type
         return self
 
     def get(self):
