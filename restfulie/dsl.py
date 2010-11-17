@@ -8,6 +8,13 @@ class Dsl:
         self.processors = [PayloadMarshallingProcessor(), ExecuteRequestProcessor()]
         self.headers = {}
 
+    def __getattr__(self, name):
+        if name in ["get", "delete", "trace", "head", "options","post", "put", "patch"]:
+            self.verb = name.upper()
+            return self.process_flow
+        else:
+            raise AttributeError(name)
+
     def use(self, feature):
         self.processors.insert(0, feature)
         return self
@@ -19,38 +26,6 @@ class Dsl:
     def accepts(self, content_type):
         self.headers['Accept'] = content_type
         return self
-
-    def get(self):
-        self.verb = "GET"
-        return self.process_flow()
-
-    def delete(self):
-        self.verb = "DELETE"
-        return self.process_flow()
-
-    def head(self):
-        self.verb = "HEAD"
-        return self.process_flow()
-
-    def trace(self):
-        self.verb = "TRACE"
-        return self.process_flow()
-
-    def options(self):
-        self.verb = "OPTIONS"
-        return self.process_flow()
-
-    def post(self, payload):
-        self.verb = "POST"
-        return self.process_flow(env={'payload':payload})
-
-    def patch(self, payload):
-        self.verb = "PATCH"
-        return self.process_flow(env={'payload':payload})
-
-    def put(self, payload):
-        self.verb = "PUT"
-        return self.process_flow(env={'paylaod':payload})
 
     def process_flow(self, env={}):
         procs = list(self.processors)
