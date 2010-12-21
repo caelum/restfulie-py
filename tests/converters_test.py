@@ -25,6 +25,11 @@ class generic_marshaller_test:
         result = converter.marshal("Hello World")
         assert result == "Hello World"
 
+    def test_unmarshal(self):
+        converter = PlainConverter()
+        result = converter.unmarshal("Hello World")
+        assert result == "Hello World"
+
 class json_marshaller_test:
 
     def test_marshal(self):
@@ -32,6 +37,12 @@ class json_marshaller_test:
         d = {'a': {'c':[1,2,3]}, 'b': 2}
         result = converter.marshal(d)
         assert result == '{"a": {"c": [1, 2, 3]}, "b": 2}'
+
+    def test_unmarshal(self):
+        converter = JsonConverter()
+        json = '{"a": {"c": [1, 2, 3]}, "b": 2}'
+        result = converter.unmarshal(json)
+        assert result == {'a': {'c':[1,2,3]}, 'b': 2}
 
 class xml_marshaller_test:
 

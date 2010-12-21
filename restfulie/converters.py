@@ -20,13 +20,23 @@ class JsonConverter:
     def marshal(self, content):
         return json.dumps(content)
 
+    def unmarshal(self, content):
+        return json.loads(content)
+
 class XmlConverter:
     def marshal(self, content):
         "Receives an ElementTree.Element"
         return ElementTree.tostring(content, encoding='utf-8')
 
+    def unmarshal(self, content):
+        "Returns an ElementTree"
+        return ElementTree.fromstring(content)
+
 class PlainConverter:
     def marshal(self, content):
+        return content
+
+    def unmarshal(self, content):
         return content
 
 Converters.register("application/xml", XmlConverter())
