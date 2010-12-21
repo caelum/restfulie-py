@@ -12,7 +12,7 @@ class dsl_test:
         assert self.dsl.processors[0] == processor
 
     def test_configure_content_type(self):
-        self.dsl.typed("content")
+        self.dsl.as_("content")
         assert self.dsl.headers["Content-Type"] == "content"
 
     def test_configure_get(self):

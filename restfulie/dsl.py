@@ -9,7 +9,7 @@ class Dsl:
         self.headers = {}
 
     def __getattr__(self, name):
-        if name in ["get", "delete", "trace", "head", "options","post", "put", "patch"]:
+        if name in ["get", "delete", "trace", "head", "options", "post", "put", "patch"]:
             self.verb = name.upper()
             return self.process_flow
         else:
@@ -19,7 +19,7 @@ class Dsl:
         self.processors.insert(0, feature)
         return self
 
-    def typed(self, content_type):
+    def as_(self, content_type):
         self.headers["Content-Type"] = content_type
         return self
 

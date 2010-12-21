@@ -26,3 +26,11 @@ class generic_marshaller_test:
         result = converter.marshal("Hello World")
         assert result == "Hello World"
 
+class json_marshaller_test:
+
+    def test_marshal(self):
+        converter = JsonConverter()
+        d = {'a': {'c':[1,2,3]}, 'b': 2}
+        result = converter.marshal(d)
+        assert result == '{"a": {"c": [1, 2, 3]}, "b": 2}'
+

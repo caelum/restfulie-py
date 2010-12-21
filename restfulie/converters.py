@@ -1,3 +1,5 @@
+import json
+
 class Converters:
 
     types = {}
@@ -13,15 +15,13 @@ class Converters:
         else:
             return PlainConverter()
 
+class JsonConverter:
+    def marshal(self, content):
+        return json.dumps(content)
 
 class XmlConverter:
     def marshal(self, content):
-        """
-        content eh um hash
-        transforme em xml!
-        e devolva transformado
-        """
-        pass
+        return content
 
 class PlainConverter:
     def marshal(self, content):
@@ -31,4 +31,7 @@ Converters.register("application/xml", XmlConverter())
 Converters.register("text/xml", XmlConverter())
 Converters.register("xml", XmlConverter())
 Converters.register("text/plain", PlainConverter())
+Converters.register("text/json", JsonConverter())
+Converters.register("application/json", JsonConverter())
+Converters.register("json", JsonConverter())
 
