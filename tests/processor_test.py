@@ -44,3 +44,36 @@ class request_processor_test:
 class payload_processor_test:
 
     pass
+
+class redirect_201_processor_test:
+
+    def test_redirect_on_201(self):
+
+        http = mock()
+        response = ({'status':200}, "anybody")
+
+        request = mock()
+        request.headers = {"Content-Type": "application/xml"}
+        request.verb = "GET"
+        request.uri = "http://www.caelum.com.br"
+
+        result = mock()
+        result.code = 201
+        result.headers = {'Location': 'http://www.caelum.com.br'}
+
+        finalresult = mock()
+        result.code = 200
+        result.body = "anybody"
+
+        chain = mock()
+        when(chain).follow(request, {}).thenReturn(result)
+
+        processor = RedirectProcessor()
+        processor.http = http
+
+        processor.redirect = lambda self: response
+        resource = processor.execute(chain, request)
+
+        assert resource.code == 200
+        assert resource.body == "anybody"
+

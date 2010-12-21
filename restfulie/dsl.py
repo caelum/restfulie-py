@@ -1,11 +1,15 @@
-from processor import ExecuteRequestProcessor, PayloadMarshallingProcessor
+from processor import *
 from parser import Parser
 
 class Dsl:
 
     def __init__ (self, uri):
         self.uri = uri
-        self.processors = [PayloadMarshallingProcessor(), ExecuteRequestProcessor()]
+        self.processors = [
+                           RedirectProcessor(),
+                           PayloadMarshallingProcessor(),
+                           ExecuteRequestProcessor(),
+                           ]
         self.headers = {}
 
     def __getattr__(self, name):
