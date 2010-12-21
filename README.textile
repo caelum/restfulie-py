@@ -1,5 +1,9 @@
 h1. Restfulie-py
 
+h2. Zero minute example
+
+h2. Five minutes example
+
 h2. Installing Restfulie
 
 On project root, run:
@@ -19,3 +23,16 @@ h2. Running tests
 On project root, run:
 
 @$python setup.py nosetests@
+
+h2. Team
+
+Alexandre Atoji
+Andrew Toshiaki Nakayama Kurauchi
+Rodrigo Manhães
+Douglas Camata
+Hugo Lopes Tavares
+Tarsis Azevedo
+BecaMotta
+Marianna Reis
+Guilherme Silveira
+

@@ -43,4 +43,4 @@ class RedirectProcessor(RequestProcessor):
         return result
 
     def redirect(self, location):
-        return restfulie.Restfulie.at(location).get()
+        return restfulie.Restfulie.at_(location).get()
