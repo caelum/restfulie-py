@@ -1,4 +1,5 @@
 import json
+from xml.etree import ElementTree
 
 class Converters:
 
@@ -21,7 +22,8 @@ class JsonConverter:
 
 class XmlConverter:
     def marshal(self, content):
-        return content
+        "Receives an ElementTree.Element"
+        return ElementTree.tostring(content, encoding='utf-8')
 
 class PlainConverter:
     def marshal(self, content):
