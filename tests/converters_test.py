@@ -52,3 +52,9 @@ class xml_marshaller_test:
         etree.append(Element('img'))
         result = converter.marshal(etree)
         assert result == '<html><img /></html>'
+
+    def test_unmarshal(self):
+        converter = XmlConverter()
+        result = converter.unmarshal('<html><img /></html>')
+        assert result.tag == 'html'
+        assert result.getchildren()[0].tag == 'img'
