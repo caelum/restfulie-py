@@ -5,19 +5,20 @@ class Dsl:
 
     def __init__ (self, uri):
         self.uri = uri
-        self.processors = [
-                           RedirectProcessor(),
+        self.processors = [RedirectProcessor(),
                            PayloadMarshallingProcessor(),
-                           ExecuteRequestProcessor(),
-                           ]
+                           ExecuteRequestProcessor(),]
         self.headers = {}
 
     def __getattr__(self, name):
-        if name in ["get", "delete", "trace", "head", "options", "post", "put", "patch"]:
+        if self._is_verb(name):
             self.verb = name.upper()
             return self.process_flow
         else:
             raise AttributeError(name)
+
+    def _is_verb(self, name):
+        return name in ["get", "delete", "trace", "head", "options", "post", "put", "patch"]
 
     def use(self, feature):
         self.processors.insert(0, feature)
