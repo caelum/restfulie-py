@@ -43,7 +43,17 @@ class request_processor_test:
 
 class payload_processor_test:
 
-    pass
+    def test_payload_is_marshalled(self):
+
+        request = mock()
+        request.headers = {'Content-type': 'text/plain'}
+        chain = mock()
+        env = {'payload': 'aText'}
+
+        processor = PayloadMarshallingProcessor()
+        resource = processor.execute(chain, request, env)
+
+        verify(chain).follow(request, {'body': 'aText'})
 
 class redirect_201_processor_test:
 
