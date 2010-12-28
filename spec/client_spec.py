@@ -1,4 +1,5 @@
 from restfulie import Restfulie
+import time
 
 def search(what):
     description = Restfulie.at("http://localhost:3000/products/opensearch.xml").accepts('application/opensearchdescription+xml').get().resource()
@@ -12,13 +13,13 @@ def my_order():
 
 def pay(result):
     card = {'payment': {'card_holder': "guilherme silveira", 'card_number': 4444, 'value': result.order.price}}
-    result = result.order.links().payment.follow.post(card).resource
+    result = result.order.links().payment.follow().post(card).resource
 
 
 def wait_payment_success(attempts, result):
 
     while result.order.state == "processing_payment":
-        #sleep 10
+        time.sleep(10)
         print("Checking order status at #{result.order.links.self.href}")
         result = result.order.refresh.resource()
 
@@ -37,7 +38,7 @@ def should_be_able_to_search_items():
 
 def should_be_able_to_create_an_empty_order():
     response = search("20")
-    response = response.resource().links().order.follow.post(my_order)
+    response = response.resource().links().order.follow().post(my_order)
     assert response.resource().order.address == my_order()['order']['address']
 
 
@@ -47,8 +48,8 @@ def should_be_able_to_add_an_item_to_an_order():
     product = results.resource().entries[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
-    result = results.resource().links().order.follow.post(my_order).resource()
-    result = result.order.links().self.follow.put(selected).resource()
+    result = results.resource().links().order.follow().post(my_order).resource()
+    result = result.order.links().self.follow().put(selected).resource()
 
     assert result.order.price == product.price
 
@@ -59,8 +60,8 @@ def should_be_able_to_pay():
     product = results.resource.entries[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
-    result = results.resource().links().order.follow.post(my_order).resource()
-    result = result.order.links().self.follow.put(selected).resource()
+    result = results.resource().links().order.follow().post(my_order).resource()
+    result = result.order.links().self.follow().put(selected).resource()
 
     result = pay(result)
     assert result.order.state == "processing_payment"
@@ -72,8 +73,8 @@ def should_try_and_pay_for_it():
     product = results.resource().entries[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
-    result = results.resource().links().order.follow.post(my_order).resource()
-    result = result.order.links().self.follow.put(selected).resource()
+    result = results.resource().links().order.follow().post(my_order).resource()
+    result = result.order.links().self.follow().put(selected).resource()
 
     result = pay(result)
 
