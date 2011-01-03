@@ -1,7 +1,9 @@
 from converters import Converters
 import re
 
-class Resource:
+from links import Links
+
+class Response:
 
     def __init__(self, response):
 
@@ -23,12 +25,11 @@ class Resource:
 
     def links(self):
         r = self._link_header_to_array()
-        #Tokamak::Xml::Links.new(r)
-        return r
+        return Links(r)
 
 
     def link(self, rel):
-        return self.links[rel]
+        return self.links().get(rel)
 
 
     def _link_header_to_array(self):

@@ -1,5 +1,5 @@
 import httplib2
-from resource import Resource
+from response import Response
 from converters import Converters, PlainConverter
 import restfulie
 
@@ -17,7 +17,7 @@ class ExecuteRequestProcessor(RequestProcessor):
         else:
             response = self.http.request(request.uri, request.verb, headers=request.headers)
 
-        resource = Resource(response)
+        resource = Response(response)
 
         return resource
 
