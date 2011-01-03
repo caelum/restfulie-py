@@ -44,8 +44,8 @@ class Response:
     def _string_to_hash(self, l):
         uri = re.search('<([^>]*)', l) and re.search('<([^>]*)', l).group(1)
         rest = re.search('.*>(.*)', l) and re.search('.*>(.*)', l).group(1)
-        rel = re.search('rel=(.*)', rest) and re.search('rel=(.*)', rest).group(1)
-        tpe = re.search('type=(.*)', rest) and re.search('type=(.*)', rest).group(1)
+        rel = re.search('rel=(.*)', rest) and re.search('rel="(.*)"', rest).group(1)
+        tpe = re.search('type=(.*)', rest) and re.search('type="(.*)"', rest).group(1)
 
         return { "href": uri, "rel": rel, "type": tpe }
 
