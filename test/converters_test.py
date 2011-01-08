@@ -42,7 +42,8 @@ class json_marshaller_test:
         converter = JsonConverter()
         json = '{"a": {"c": [1, 2, 3]}, "b": 2}'
         result = converter.unmarshal(json)
-        assert result == {'a': {'c':[1,2,3]}, 'b': 2}
+        assert result.a.c == [1,2,3]
+        assert result.b == 2
 
 class xml_marshaller_test:
 
