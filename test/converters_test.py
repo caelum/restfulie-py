@@ -56,6 +56,7 @@ class xml_marshaller_test:
 
     def test_unmarshal(self):
         converter = XmlConverter()
-        result = converter.unmarshal('<html><img /></html>')
+        result = converter.unmarshal('<html><img><a /><a /></img></html>')
         assert result.tag == 'html'
-        assert result.getchildren()[0].tag == 'img'
+        assert result.img.tag == 'img'
+        assert len(result.img.a) == 2
