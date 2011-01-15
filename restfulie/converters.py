@@ -1,5 +1,6 @@
 import json
 from xml.etree import ElementTree
+from opensearch import OpenSearchDescription
 
 class Converters:
 
@@ -34,11 +35,11 @@ class _dict2obj(object):
 
 class XmlConverter:
     def marshal(self, content):
-        "Receives an ElementTree.Element"
+        'Receives an ElementTree.Element'
         return ElementTree.tostring(content, encoding='utf-8')
 
     def unmarshal(self, content):
-        "Returns an ElementTree Enhanced"
+        'Returns an ElementTree Enhanced'
         e = ElementTree.fromstring(content)
         for element in e.getiterator():
             for child in element.getchildren():
@@ -49,6 +50,15 @@ class XmlConverter:
         return e
 
 
+class OpenSearchConverter:
+    def marshal(self, content):
+        return XmlConverter().marshal(content)
+
+    def unmarshal(self, content):
+        e_tree = ElementTree.fromstring(content)
+        return OpenSearchDescription(e_tree)
+
+
 class PlainConverter:
     def marshal(self, content):
         return content
@@ -56,11 +66,11 @@ class PlainConverter:
     def unmarshal(self, content):
         return content
 
-Converters.register("application/xml", XmlConverter())
-Converters.register("text/xml", XmlConverter())
-Converters.register("xml", XmlConverter())
-Converters.register("text/plain", PlainConverter())
-Converters.register("text/json", JsonConverter())
-Converters.register("application/json", JsonConverter())
-Converters.register("json", JsonConverter())
-
+Converters.register('application/xml', XmlConverter())
+Converters.register('text/xml', XmlConverter())
+Converters.register('xml', XmlConverter())
+Converters.register('text/plain', PlainConverter())
+Converters.register('text/json', JsonConverter())
+Converters.register('application/json', JsonConverter())
+Converters.register('json', JsonConverter())
+Converters.register('application/opensearchdescription+xml', OpenSearchConverter())
