@@ -25,7 +25,7 @@ class PayloadMarshallingProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         if "payload" in env:
-            marshaller = Converters.marshaller_for(request.headers.get("Content-type"))
+            marshaller = Converters.marshaller_for(request.headers.get("Content-Type"))
             env["body"] = marshaller.marshal(env["payload"])
             del(env["payload"])
 
