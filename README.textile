@@ -2,6 +2,13 @@ h1. Restfulie-py
 
 h2. Zero minute example
 
+@
+>>> from restfulie import Restfulie
+>>> result = Restfulie.at_("http://twitter.com/statuses/public_timeline.xml").get()
+>>> for status in result.resource():
+>>>     print "%s %s %s" % (status.user.screen_name, status.text, status.created_at)
+@
+
 h2. Five minutes example
 
 h2. Installing Restfulie
