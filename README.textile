@@ -2,10 +2,12 @@ h1. Restfulie-py
 
 h2. Zero minute example
 
-@>>> from restfulie import Restfulie@
-@>>> result = Restfulie.at_("http://twitter.com/statuses/public_timeline.xml").get()@
-@>>> for status in result.resource():@
-@>>> ....print "%s %s %s" % (status.user.screen_name, status.text, status.created_at)@
+<pre>
+>>> from restfulie import Restfulie
+>>> result = Restfulie.at_("http://twitter.com/statuses/public_timeline.xml").get()
+>>> for status in result.resource():
+>>> ....print "%s %s %s" % (status.user.screen_name, status.text, status.created_at)
+</pre>
 
 h2. Five minutes example
 
@@ -13,14 +15,13 @@ h2. Installing Restfulie
 
 On project root, run:
 
-@$python setup.py install@
-
+@$ python setup.py install@
 
 h2. Installing Restfulie for development
 
 On project root, run:
 
-@$python setup.py develop@
+@$ python setup.py develop@
 
 
 h2. Running tests
@@ -40,4 +41,3 @@ Tarsis Azevedo
 BecaMotta
 Marianna Reis
 Guilherme Silveira
-
