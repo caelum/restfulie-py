@@ -3,7 +3,7 @@ import time
 
 def search(what):
     description = Restfulie.at("http://localhost:3000/products/opensearch.xml").accepts('application/opensearchdescription+xml').get().resource()
-    items = description.use("application/atom+xml").search(searchTerms = what, startPage = 1)
+    items = description.use("application/xml").search(searchTerms = what, startPage = 1)
     return items
 
 
@@ -33,7 +33,7 @@ def wait_payment_success(attempts, result):
 
 def should_be_able_to_search_items():
     items = search("20")
-    assert len(items.resource().entries) == 2
+    assert len(items.resource().product) == 2
 
 
 def should_be_able_to_create_an_empty_order():
