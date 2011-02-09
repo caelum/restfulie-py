@@ -52,7 +52,6 @@ class XmlConverter:
         e = ElementTree.fromstring(content)
         for element in e.getiterator():
             for child in list(element):
-                print child.tag, element, list(element), len(element.findall(child.tag)), len(element.findall(child.tag)) == 1
                 if len(list(element)) == 0:
                     setattr(element, child.tag, child.text)
                 elif len(element.findall(child.tag)) == 1:

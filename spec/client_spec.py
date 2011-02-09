@@ -38,7 +38,7 @@ def should_be_able_to_search_items():
 
 def should_be_able_to_create_an_empty_order():
     response = search("20")
-    print response.resource().links().order.follow().post(my_order()).body
+    print response.resource().links().order.follow().post(my_order()).code
     response = response.resource().links().order.follow().post(my_order())
     assert response.resource().order.address == my_order()['order']['address']
 
