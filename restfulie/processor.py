@@ -35,12 +35,12 @@ class RedirectProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         result = chain.follow(request, env)
-        if result.code == 201 or result.code == 302:
-            location = result.headers["Location"] or result.headers["location"]
+        if result.code == '201' or result.code == '302':
+            location = result.headers.get("Location") or result.headers.get("location")
             if location:
                 return self.redirect(location)
 
         return result
 
     def redirect(self, location):
-        return restfulie.Restfulie.at_(location).get()
+        return restfulie.Restfulie.at(location).get()

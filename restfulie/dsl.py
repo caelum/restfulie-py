@@ -8,7 +8,7 @@ class Dsl:
         self.processors = [RedirectProcessor(),
                            PayloadMarshallingProcessor(),
                            ExecuteRequestProcessor(),]
-        self.headers = {"Content-Type": "application/xml"}
+        self.headers = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}
 
     def __getattr__(self, name):
         if self._is_verb(name):

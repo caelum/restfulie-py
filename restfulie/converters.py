@@ -52,12 +52,12 @@ class XmlConverter:
         e = ElementTree.fromstring(content)
         for element in e.getiterator():
             for child in list(element):
-                if len(list(element)) == 0:
-                    setattr(element, child.tag, child.text)
-                elif len(element.findall(child.tag)) == 1:
-                    setattr(element, child.tag, element.find(child.tag))
-                else:
+                if len(element.findall(child.tag)) > 1:
                     setattr(element, child.tag, element.findall(child.tag))
+                elif len(list(child)) == 0:
+                    setattr(element, child.tag, child.text)
+                else:
+                    setattr(element, child.tag, element.find(child.tag))
 
         l = []
 
