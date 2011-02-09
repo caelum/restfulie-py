@@ -21,10 +21,9 @@ def wait_payment_success(attempts, result):
 
     while result.state == "processing_payment":
         time.sleep(1)
-        print("Checking order status at %s" % result.links.self.href)
         result = result.link('self').follow().get().resource()
 
-    if result.order.state == "unpaid" and attempts > 0:
+    if result.state == "unpaid" and attempts > 0:
         print("Ugh! Payment rejected! Get some credits my boy... I am trying it again.")
         result = pay(result)
         wait_payment_success(attempts-1, result)
