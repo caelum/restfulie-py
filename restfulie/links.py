@@ -17,6 +17,7 @@ class Links:
         for link in links:
             l = Link(link)
             self.links[l.rel] = l
+            setattr(self, l.rel, l)
 
     def get(self, rel):
         return self.links.get(rel)

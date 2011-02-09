@@ -48,12 +48,12 @@ class payload_processor_test:
         request = mock()
         request.headers = {'Content-type': 'text/plain'}
         chain = mock()
-        env = {'payload': 'aText'}
+        env = {'payload': {'product': 'car'}}
 
         processor = PayloadMarshallingProcessor()
         resource = processor.execute(chain, request, env)
 
-        verify(chain).follow(request, {'body': 'aText'})
+        verify(chain).follow(request, {'body': '<product>car</product>'})
 
 class redirect_201_processor_test:
 

@@ -13,7 +13,7 @@ class converters_test:
         assert Converters.types["text/plain"] == converter
 
     def test_marshaller_for(self):
-        assert Converters.marshaller_for("application/xml").__class__ == PlainConverter().__class__
+        assert Converters.marshaller_for("application/atom").__class__ == XmlConverter().__class__
         converter = PlainConverter()
         Converters.register("text/plain", converter)
         assert Converters.marshaller_for("text/plain") == converter
@@ -49,9 +49,8 @@ class xml_marshaller_test:
 
     def test_marshal(self):
         converter = XmlConverter()
-        etree = Element('html')
-        etree.append(Element('img'))
-        result = converter.marshal(etree)
+        d = {'html': {'img': ''}}
+        result = converter.marshal(d)
         assert result == '<html><img /></html>'
 
     def test_unmarshal(self):

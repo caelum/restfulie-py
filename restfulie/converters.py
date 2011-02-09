@@ -1,6 +1,7 @@
 import json
 from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
+from links import Link, Links
 
 class Converters:
 
@@ -12,7 +13,7 @@ class Converters:
 
     @staticmethod
     def marshaller_for(a_type):
-        return Converters.types.get(a_type) or PlainConverter()
+        return Converters.types.get(a_type) or XmlConverter()
 
 
 class JsonConverter:
@@ -35,20 +36,41 @@ class _dict2obj(object):
 
 class XmlConverter:
     def marshal(self, content):
-        'Receives an ElementTree.Element'
-        return ElementTree.tostring(content, encoding='utf-8')
+        return ElementTree.tostring(self._dict_to_etree(content))
+
+    def _dict_to_etree(self, content):
+        for key, value in content.items():
+            tree = ElementTree.Element(key)
+            if type(value) == dict:
+                tree.append(self._dict_to_etree(value))
+            else:
+                tree.text = value
+            return tree
 
     def unmarshal(self, content):
         'Returns an ElementTree Enhanced'
         e = ElementTree.fromstring(content)
         for element in e.getiterator():
-            for child in element.getchildren():
-                if len(child.getchildren()) == 0:
+            for child in list(element):
+                print child.tag, element, list(element), len(element.findall(child.tag)), len(element.findall(child.tag)) == 1
+                if len(list(element)) == 0:
                     setattr(element, child.tag, child.text)
                 elif len(element.findall(child.tag)) == 1:
                     setattr(element, child.tag, element.find(child.tag))
                 else:
                     setattr(element, child.tag, element.findall(child.tag))
+
+        l = []
+
+        for element in e.getiterator("link"):
+            d = { 'href': element.attrib['href'],
+                  'rel': element.attrib['rel'],
+                  'type': element.attrib['type'] }
+
+            l.append(d)
+
+        e.links = lambda: Links(l)
+        e.link = lambda x: e.links().get(x)
         return e
 
 

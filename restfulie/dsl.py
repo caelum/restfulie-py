@@ -32,6 +32,10 @@ class Dsl:
         self.headers['Accept'] = content_type
         return self
 
-    def process_flow(self, env={}):
+    def process_flow(self, payload=None):
+        env = {}
+        if payload:
+            env = {'payload': payload}
+
         procs = list(self.processors)
         return Parser(procs).follow(self, env)
