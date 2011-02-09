@@ -35,7 +35,7 @@ class RedirectProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         result = chain.follow(request, env)
-        if result.code == 201:
+        if result.code == 201 or result.code == 302:
             location = result.headers["Location"] or result.headers["location"]
             if location:
                 return self.redirect(location)
