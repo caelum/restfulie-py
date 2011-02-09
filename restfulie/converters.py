@@ -55,6 +55,9 @@ class XmlConverter:
     def unmarshal(self, content):
         'Returns an ElementTree Enhanced'
         e = ElementTree.fromstring(content)
+        return self._enhance_element_tree(e)
+
+    def _enhance_element_tree(self, e):
         for element in e.getiterator():
             for child in list(element):
                 if len(element.findall(child.tag)) > 1:
@@ -65,8 +68,7 @@ class XmlConverter:
                     setattr(element, child.tag, element.find(child.tag))
 
         l = []
-
-        for element in e.getiterator("link"):
+        for element in e.getiterator('link'):
             d = { 'href': element.attrib['href'],
                   'rel': element.attrib['rel'],
                   'type': element.attrib['type'] }
@@ -75,6 +77,7 @@ class XmlConverter:
 
         e.links = lambda: Links(l)
         e.link = lambda x: e.links().get(x)
+
         return e
 
 

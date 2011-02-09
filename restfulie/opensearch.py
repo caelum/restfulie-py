@@ -18,4 +18,3 @@ class OpenSearchDescription:
                 template = template.replace('{searchTerms}', searchTerms)
                 template = template.replace('{startPage?}', str(startPage))
                 return dsl.Dsl(template).accepts(self.url_type).get()
-        return None

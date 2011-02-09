@@ -33,7 +33,7 @@ class Response:
 
 
     def _link_header_to_array(self):
-        values = self.headers["link"].split(",")
+        values = self.headers['link'].split(',')
         links = []
         for link in values:
             links.append(self._string_to_hash(link))
@@ -47,5 +47,5 @@ class Response:
         rel = re.search('rel=(.*)', rest) and re.search('rel="(.*)"', rest).group(1)
         tpe = re.search('type=(.*)', rest) and re.search('type="(.*)"', rest).group(1)
 
-        return { "href": uri, "rel": rel, "type": tpe }
+        return { 'href': uri, 'rel': rel, 'type': tpe }
 

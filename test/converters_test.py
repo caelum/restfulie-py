@@ -55,7 +55,9 @@ class xml_marshaller_test:
 
     def test_unmarshal(self):
         converter = XmlConverter()
-        result = converter.unmarshal('<html><img><a /><a /></img></html>')
+        result = converter.unmarshal('<html><img><link href="http://google.com" rel="alternative" type="application/xml">A Link</link><link href="http://yahoo.com" rel="self" type="application/xml" /></img></html>')
         assert result.tag == 'html'
         assert result.img.tag == 'img'
-        assert len(result.img.a) == 2
+        assert result.img.link[0].text == 'A Link'
+        assert len(result.img.link) == 2
+        assert len(result.links().links) == 2
