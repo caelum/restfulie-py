@@ -46,7 +46,7 @@ def should_be_able_to_create_an_empty_order():
 def should_be_able_to_add_an_item_to_an_order():
     results = search("20")
 
-    product = results.resource().entries[0]
+    product = results.resource().product[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order).resource()
@@ -58,7 +58,7 @@ def should_be_able_to_add_an_item_to_an_order():
 def should_be_able_to_pay():
     results = search("20")
 
-    product = results.resource.entries[0]
+    product = results.resource.product[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order).resource()
@@ -71,7 +71,7 @@ def should_be_able_to_pay():
 def should_try_and_pay_for_it():
     results = search("20")
 
-    product = results.resource().entries[0]
+    product = results.resource().product[0]
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order).resource()
