@@ -39,13 +39,18 @@ class XmlConverter:
         return ElementTree.tostring(self._dict_to_etree(content))
 
     def _dict_to_etree(self, content):
-        for key, value in content.items():
-            tree = ElementTree.Element(key)
-            if type(value) == dict:
-                tree.append(self._dict_to_etree(value))
-            else:
-                tree.text = value
-            return tree
+        tree = ElementTree.Element(content.keys()[0])
+        self._dict_to_etree_rec(content[content.keys()[0]], tree)
+        return tree
+
+    def _dict_to_etree_rec(self, content, tree):
+        if type(content) == dict:
+            for key, value in content.items():
+                e = ElementTree.Element(key)
+                self._dict_to_etree_rec(value, e)
+                tree.append(e)
+        else:
+            tree.text = str(content)
 
     def unmarshal(self, content):
         'Returns an ElementTree Enhanced'
