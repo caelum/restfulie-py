@@ -13,15 +13,16 @@ def my_order():
 
 def pay(result):
     card = {'payment': {'card_holder': "guilherme silveira", 'card_number': 4444, 'value': result.price}}
-    result = result.links().payment.follow().post(card).resource
+    result = result.links().payment.follow().post(card).resource()
+    return result
 
 
 def wait_payment_success(attempts, result):
 
-    while result.order.state == "processing_payment":
-        time.sleep(10)
-        print("Checking order status at #{result.order.links.self.href}")
-        result = result.order.refresh.resource()
+    while result.state == "processing_payment":
+        time.sleep(1)
+        print("Checking order status at %s" % result.links.self.href)
+        result = result.link('self').follow().get().resource()
 
     if result.order.state == "unpaid" and attempts > 0:
         print("Ugh! Payment rejected! Get some credits my boy... I am trying it again.")
@@ -61,9 +62,10 @@ def should_be_able_to_pay():
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order()).resource()
-    result = result.order.links().self.follow().put(selected).resource()
+    result = result.links().self.follow().put(selected).resource()
 
     result = pay(result)
+    print result
     assert result.state == "processing_payment"
 
 
