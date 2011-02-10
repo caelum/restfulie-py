@@ -1,15 +1,49 @@
-h1. Restfulie-py
+h2. One minute guide
 
-h2. Zero minute example
+<p>This is a one minute guide to get you going with Restfulie Python
+	As soon as you finish this example you are up to the next guide and then
+	move on to the features you want to explore more.</p>
+	
+h2. Hypermedia
+
+We are ready to go, hypermedia supported:
 
 <pre>
->>> from restfulie import Restfulie
->>> result = Restfulie.at_("http://twitter.com/statuses/public_timeline.xml").get()
->>> for status in result.resource():
->>> ....print "%s %s %s" % (status.user.screen_name, status.text, status.created_at)
+from restfulie import Restfulie
+
+# using restfulie as an http api:
+>>> response = Restfulie.accepts('application/xml').at('http://localhost:8080/items').get()
+>>> print response.body
+&lt;items>
+    &lt;item>
+        &lt;name>Car&lt;/name>
+        &lt;price>32000.00&lt;/price>
+    &lt;/item>
+    &lt;item>
+        &lt;name>House&lt;/name>
+        &lt;price>231000.00&lt;/price>
+    &lt;/item>
+&lt;/items>
+
+>>> print response.code
+200
+
+# unmarshalling the items response
+>>> r = response.resource()
+>>> print len(r.item)
+2
+>>> print len(r.item[0].name)
+Car
+
+# navigating through hypermedia
+>>> item = { 'name': 'New product', 'price': 30 }
+>>> result = items.link("self").follow().post(item)
+>>> print result.code
+200
+
 </pre>
 
-h2. Five minutes example
+This is it. Adding hypermedia capabilities and following links. Now its time to use it in the <b>right way</b>.
 
 h2. Installing Restfulie
 
