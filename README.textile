@@ -59,7 +59,7 @@ h2. Running tests
 
 On project root, run:
 
-@$python setup.py nosetests@
+@$ python setup.py nosetests@
 
 h2. Team
 
