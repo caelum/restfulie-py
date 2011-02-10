@@ -1,8 +1,8 @@
 h2. <a href="https://github.com/caelum/restfulie/wiki">Documentation Wiki</a>
+
 h2. One minute guide
 
 This is a one minute guide to get you going with Restfulie Python
-
 We are ready to go, hypermedia supported:
 
 <pre>
