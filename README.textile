@@ -11,16 +11,16 @@ from restfulie import Restfulie
 # using restfulie as an http api:
 >>> response = Restfulie.accepts('application/xml').at('http://localhost:8080/items').get()
 >>> print response.body
-&lt;items>
-    &lt;item>
-        &lt;name>Car&lt;/name>
-        &lt;price>32000.00&lt;/price>
-    &lt;/item>
-    &lt;item>
-        &lt;name>House&lt;/name>
-        &lt;price>231000.00&lt;/price>
-    &lt;/item>
-&lt;/items>
+<items>
+    <item>
+        <name>Car</name>
+        <price>32000.00</price>
+    </item>
+    <item>
+        <name>House</name>
+        <price>231000.00</price>
+    </item>
+</items>
 
 >>> print response.code
 200
