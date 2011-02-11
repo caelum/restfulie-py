@@ -61,6 +61,10 @@ On project root, run:
 
 @$ python setup.py nosetests@
 
+To run restfulie-restbuy integration test, first start restfulie-restbuy server and run:
+
+@$ python setup.py nosetests -i "spec|should"@
+
 h2. Team
 
 Alexandre Atoji
