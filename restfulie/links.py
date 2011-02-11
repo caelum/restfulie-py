@@ -8,7 +8,7 @@ class Link:
         self.type = link.get('type')
 
     def follow(self):
-        return dsl.Dsl(self.href).use(self.type)
+        return dsl.Dsl(self.href).as_(self.type)
 
 class Links:
 

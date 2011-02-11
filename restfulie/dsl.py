@@ -25,7 +25,8 @@ class Dsl:
         return self
 
     def as_(self, content_type):
-        self.headers["Content-Type"] = content_type
+        if content_type:
+            self.headers["Content-Type"] = content_type
         return self
 
     def accepts(self, content_type):

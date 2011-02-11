@@ -61,7 +61,7 @@ def should_be_able_to_pay():
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order()).resource()
-    result = result.links().self.follow().put(selected).resource()
+    result = result.link('self').follow().put(selected).resource()
 
     result = pay(result)
     print result
@@ -75,7 +75,7 @@ def should_try_and_pay_for_it():
     selected = {'order': {'product': product.id, 'quantity': 1}}
 
     result = results.resource().links().order.follow().post(my_order()).resource()
-    result = result.links().self.follow().put(selected).resource()
+    result = result.link('self').follow().put(selected).resource()
 
     result = pay(result)
 

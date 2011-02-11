@@ -18,7 +18,8 @@ class ExecuteRequestProcessor(RequestProcessor):
             response = self.http.request(request.uri, request.verb, headers=request.headers)
 
         resource = Response(response)
-
+        
+        resource.request_type = request.headers.get("Content-Type")
         return resource
 
 class PayloadMarshallingProcessor(RequestProcessor):
@@ -38,9 +39,9 @@ class RedirectProcessor(RequestProcessor):
         if result.code == '201' or result.code == '302':
             location = result.headers.get("Location") or result.headers.get("location")
             if location:
-                return self.redirect(location)
+                return self.redirect(location, request.headers.get("Content-Type"))
 
         return result
 
-    def redirect(self, location):
+    def redirect(self, location, request_type):
         return restfulie.Restfulie.at(location).get()

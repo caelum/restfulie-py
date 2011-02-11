@@ -41,6 +41,22 @@ class request_processor_test:
         assert resource.code == 404
         assert resource.body == "anybody"
 
+    def test_execute_should_set_result_request_type(self):
+        http = mock()
+        response = ({'status':200}, "body")
+        request = mock()
+        request.headers = {"Content-Type": "json"}
+        request.verb = "GET"
+        request.uri = "http://www.caelum.com.br"
+        
+        when(http).request(request.uri, request.verb, headers=request.headers).thenReturn(response)
+        
+        processor = ExecuteRequestProcessor()
+        processor.http = http
+        resource = processor.execute([], request)
+        
+        assert resource.request_type == "json"
+
 class payload_processor_test:
 
     def test_payload_is_marshalled(self):
@@ -68,11 +84,11 @@ class redirect_201_processor_test:
         request.uri = "http://www.caelum.com.br"
 
         result = mock()
-        result.code = 201
+        result.code = '201'
         result.headers = {'Location': 'http://www.caelum.com.br'}
 
         finalresult = mock()
-        result.code = 200
+        result.code = '200'
         result.body = "anybody"
 
         chain = mock()
@@ -84,6 +100,5 @@ class redirect_201_processor_test:
         processor.redirect = lambda self: response
         resource = processor.execute(chain, request)
 
-        assert resource.code == 200
+        assert resource.code == '200'
         assert resource.body == "anybody"
-
