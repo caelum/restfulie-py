@@ -3,6 +3,7 @@ import re
 
 from links import Links
 
+
 class Response:
 
     def __init__(self, response):
@@ -22,15 +23,12 @@ class Response:
         converter = Converters.marshaller_for(contenttype)
         return converter.unmarshal(self.body)
 
-
     def links(self):
         r = self._link_header_to_array()
         return Links(r)
 
-
     def link(self, rel):
         return self.links().get(rel)
-
 
     def _link_header_to_array(self):
         values = self.headers['link'].split(',')
@@ -40,12 +38,12 @@ class Response:
 
         return links
 
-
     def _string_to_hash(self, l):
         uri = re.search('<([^>]*)', l) and re.search('<([^>]*)', l).group(1)
         rest = re.search('.*>(.*)', l) and re.search('.*>(.*)', l).group(1)
-        rel = re.search('rel=(.*)', rest) and re.search('rel="(.*)"', rest).group(1)
-        tpe = re.search('type=(.*)', rest) and re.search('type="(.*)"', rest).group(1)
+        rel = (re.search('rel=(.*)', rest) and
+               re.search('rel="(.*)"', rest).group(1))
+        tpe = (re.search('type=(.*)', rest) and
+               re.search('type="(.*)"', rest).group(1))
 
-        return { 'href': uri, 'rel': rel, 'type': tpe }
-
+        return {'href': uri, 'rel': rel, 'type': tpe}

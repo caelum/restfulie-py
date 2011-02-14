@@ -1,6 +1,7 @@
 from lxml import objectify
 from converters import Converters
 
+
 class LXMLConverter(object):
 
     def marshal(self, dictionary):

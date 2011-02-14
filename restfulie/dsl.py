@@ -1,14 +1,16 @@
 from processor import *
 from parser import Parser
 
+
 class Dsl:
 
-    def __init__ (self, uri):
+    def __init__(self, uri):
         self.uri = uri
         self.processors = [RedirectProcessor(),
                            PayloadMarshallingProcessor(),
-                           ExecuteRequestProcessor(),]
-        self.headers = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}
+                           ExecuteRequestProcessor(), ]
+        self.headers = {'Content-Type': 'application/xml',
+                        'Accept': 'application/xml'}
 
     def __getattr__(self, name):
         if self._is_verb(name):
@@ -18,7 +20,9 @@ class Dsl:
             raise AttributeError(name)
 
     def _is_verb(self, name):
-        return name in ["get", "delete", "trace", "head", "options", "post", "put", "patch"]
+        verbs = ["get", "delete", "trace", "head",
+                 "options", "post", "put", "patch"]
+        return name in verbs
 
     def use(self, feature):
         self.processors.insert(0, feature)

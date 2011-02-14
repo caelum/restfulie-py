@@ -1,5 +1,6 @@
 import dsl
 
+
 class Link:
 
     def __init__(self, link):
@@ -9,6 +10,7 @@ class Link:
 
     def follow(self):
         return dsl.Dsl(self.href).as_(self.type)
+
 
 class Links:
 
@@ -21,4 +23,3 @@ class Links:
 
     def get(self, rel):
         return self.links.get(rel)
-

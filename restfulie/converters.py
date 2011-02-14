@@ -3,6 +3,7 @@ from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
 from links import Link, Links
 
+
 class Converters:
 
     types = {}
@@ -25,13 +26,14 @@ class JsonConverter:
 
 
 class _dict2obj(object):
-    #from: http://stackoverflow.com/questions/1305532/convert-python-dict-to-object
     def __init__(self, dict_):
         for key, value in dict_.items():
             if isinstance(value, (list, tuple)):
-               setattr(self, key, [_dict2obj(x) if isinstance(x, dict) else x for x in value])
+                d = [_dict2obj(x) if isinstance(x, dict) else x for x in value]
+                setattr(self, key, d)
             else:
-               setattr(self, key, _dict2obj(value) if isinstance(value, dict) else value)
+                d = _dict2obj(value) if isinstance(value, dict) else value
+                setattr(self, key, d)
 
 
 class XmlConverter:
@@ -69,9 +71,9 @@ class XmlConverter:
 
         l = []
         for element in e.getiterator('link'):
-            d = { 'href': element.attrib.get('href'),
-                  'rel': element.attrib.get('rel'),
-                  'type': element.attrib.get('type') or 'application/xml'}
+            d = {'href': element.attrib.get('href'),
+                 'rel': element.attrib.get('rel'),
+                 'type': element.attrib.get('type') or 'application/xml'}
 
             l.append(d)
 
@@ -104,4 +106,5 @@ Converters.register('text/plain', PlainConverter())
 Converters.register('text/json', JsonConverter())
 Converters.register('application/json', JsonConverter())
 Converters.register('json', JsonConverter())
-Converters.register('application/opensearchdescription+xml', OpenSearchConverter())
+Converters.register('application/opensearchdescription+xml',
+                    OpenSearchConverter())

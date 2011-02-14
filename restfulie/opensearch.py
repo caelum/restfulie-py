@@ -1,5 +1,6 @@
 import dsl
 
+
 class OpenSearchDescription:
 
     def __init__(self, element_tree):
@@ -11,7 +12,8 @@ class OpenSearchDescription:
         return self
 
     def search(self, searchTerms, startPage):
-        urls = self.element_tree.findall('{http://a9.com/-/spec/opensearch/1.1/}Url')
+        tag = '{http://a9.com/-/spec/opensearch/1.1/}Url'
+        urls = self.element_tree.findall(tag)
         for url in urls:
             if url.get('type') == self.url_type:
                 template = url.get('template')
