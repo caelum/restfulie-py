@@ -41,22 +41,6 @@ class request_processor_test:
         assert resource.code == 404
         assert resource.body == "anybody"
 
-    def test_execute_should_set_result_request_type(self):
-        http = mock()
-        response = ({'status':200}, "body")
-        request = mock()
-        request.headers = {"Content-Type": "json"}
-        request.verb = "GET"
-        request.uri = "http://www.caelum.com.br"
-        
-        when(http).request(request.uri, request.verb, headers=request.headers).thenReturn(response)
-        
-        processor = ExecuteRequestProcessor()
-        processor.http = http
-        resource = processor.execute([], request)
-        
-        assert resource.request_type == "json"
-
 class payload_processor_test:
 
     def test_payload_is_marshalled(self):

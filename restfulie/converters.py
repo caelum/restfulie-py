@@ -69,9 +69,9 @@ class XmlConverter:
 
         l = []
         for element in e.getiterator('link'):
-            d = { 'href': element.attrib['href'],
-                  'rel': element.attrib['rel'],
-                  'type': element.attrib['type'] }
+            d = { 'href': element.attrib.get('href'),
+                  'rel': element.attrib.get('rel'),
+                  'type': element.attrib.get('type') or 'application/xml'}
 
             l.append(d)
 

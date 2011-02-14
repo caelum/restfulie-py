@@ -11,7 +11,6 @@ class Response:
         self.headers = self.response[0]
         self.code = self.response[0]['status']
         self.body = self.response[1]
-        self.request_type = ''
 
     def resource(self):
 

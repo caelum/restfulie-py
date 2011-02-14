@@ -19,7 +19,6 @@ class ExecuteRequestProcessor(RequestProcessor):
 
         resource = Response(response)
         
-        resource.request_type = request.headers.get("Content-Type")
         return resource
 
 class PayloadMarshallingProcessor(RequestProcessor):
@@ -44,4 +43,4 @@ class RedirectProcessor(RequestProcessor):
         return result
 
     def redirect(self, location, request_type):
-        return restfulie.Restfulie.at(location).get()
+        return restfulie.Restfulie.at(location).as_(request_type).get()
