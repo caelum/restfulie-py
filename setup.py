@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='restfulie',
-      version='0.1',
+      version='0.8',
       namespace_packages = ['restfulie'],
       test_suite = "nose.collector",
       install_requires= ['httplib2>=0.6.0'],
