@@ -1,7 +1,7 @@
 import json
 from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
-from links import Link, Links
+from links import Links
 
 
 class Converters:

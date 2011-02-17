@@ -1,6 +1,6 @@
 import httplib2
 from response import Response
-from converters import Converters, PlainConverter
+from converters import Converters
 import restfulie
 
 
