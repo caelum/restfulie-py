@@ -25,4 +25,4 @@ class LXMLConverter(object):
         setattr(result, xml.tag, getattr(xml, child_tag))
         return result
 
-Converters.register("application/xml", XmlConverter())
+Converters.register("application/xml", LXMLConverter())
