@@ -1,5 +1,5 @@
-from processor import *
 from parser import Parser
+from processor import RedirectProcessor, PayloadMarshallingProcessor, ExecuteRequestProcessor
 
 
 class Dsl:
