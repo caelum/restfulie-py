@@ -76,3 +76,4 @@ h2. Team
 "BecaMotta":https://github.com/BecaMotta
 "Marianna Reis":https://github.com/mariannareis
 "Guilherme Silveira":https://github.com/guilhermesilveira
+"Pedro Matiello":http://pmatiello.appspot.com/
