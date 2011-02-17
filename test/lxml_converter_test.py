@@ -11,7 +11,7 @@ class lxml_converter_test:
     def test_unmarshal(self):
         converter = LXMLConverter()
         result = converter.unmarshal('<html><img><link href="http://google.com" rel="alternative" type="application/xml">A Link</link><link href="http://yahoo.com" rel="self" type="application/xml" /></img></html>')
-        assert result.html
+        assert result.html is not None
         assert result.html.tag == "img"
         assert result.html.link[0].tag == "link"
         assert result.html.link[0] == "A Link"
