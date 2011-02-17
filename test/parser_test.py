@@ -1,7 +1,6 @@
 from restfulie.parser import Parser
-from restfulie.processor import ExecuteRequestProcessor
 
-from mockito import *
+from mockito import mock, when
 
 def test_parser_follow():
 

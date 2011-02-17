@@ -1,5 +1,4 @@
-from restfulie.converters import *
-from xml.etree.ElementTree import Element
+from restfulie.converters import Converters, PlainConverter, XmlConverter, JsonConverter
 
 class converters_test:
 

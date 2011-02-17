@@ -1,5 +1,5 @@
-from restfulie.processor import *
-from mockito import *
+from mockito import mock, when, verify
+from restfulie.processor import ExecuteRequestProcessor, PayloadMarshallingProcessor, RedirectProcessor
 
 class request_processor_test:
 

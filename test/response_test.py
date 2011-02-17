@@ -1,5 +1,4 @@
 from restfulie.response import Response
-from mockito import *
 
 def trivial_test():
 
