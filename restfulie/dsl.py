@@ -1,5 +1,6 @@
 from parser import Parser
 from processor import RedirectProcessor, PayloadMarshallingProcessor, ExecuteRequestProcessor
+from thread import start_new_thread
 
 
 class Dsl:
@@ -11,11 +12,15 @@ class Dsl:
                            ExecuteRequestProcessor(), ]
         self.headers = {'Content-Type': 'application/xml',
                         'Accept': 'application/xml'}
+        self.callback = None
 
     def __getattr__(self, name):
-        if self._is_verb(name):
+        if (self._is_verb(name) and self.callback is None):
             self.verb = name.upper()
             return self.process_flow
+        elif (self._is_verb(name) and self.callback is not None):
+            self.verb = name.upper()
+            return self._process_async_flow
         else:
             raise AttributeError(name)
 
@@ -26,6 +31,10 @@ class Dsl:
 
     def use(self, feature):
         self.processors.insert(0, feature)
+        return self
+
+    def calling_back(self, callback):
+        self.callback = callback
         return self
 
     def as_(self, content_type):
@@ -44,3 +53,10 @@ class Dsl:
 
         procs = list(self.processors)
         return Parser(procs).follow(self, env)
+
+    def _process_async_flow(self, payload=None):
+        
+        def handle_async():
+            self.callback(self.process_flow(payload=payload))
+        
+        start_new_thread(handle_async, ())

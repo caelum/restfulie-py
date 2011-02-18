@@ -63,7 +63,19 @@ class dsl_test:
         assert self.dsl.verb == "PUT"
         assert self.dsl.method_was_called
 
+    def test_run_async(self):
+        def callback(*args):
+            pass
+        
+        self.dsl.process_flow = method_called(self.dsl)
+        self.dsl.calling_back(callback).get()
+        while (not self.dsl.method_was_called):
+            pass
+        
 def method_called(to_be_mocked):
+    
+    def fake_process_flow(*args, **kwargs):
+        setattr(to_be_mocked, 'method_was_called', True)
+        
     to_be_mocked.method_was_called = False
-    return lambda *ignored_args: setattr(to_be_mocked, 'method_was_called', True)
-
+    return fake_process_flow
