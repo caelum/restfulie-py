@@ -14,68 +14,24 @@ class dsl_test:
     def test_configure_content_type(self):
         self.dsl.as_("content")
         assert self.dsl.headers["Content-Type"] == "content"
+        
+    def test_configure_valid_http_methods(self):
+        for verb in Dsl.HTTP_VERBS:
+            method = self.dsl.__getattr__(verb)
+            assert method.config == self.dsl
+            assert self.dsl.verb == verb.upper()
+    
+    def test_not_configure_invalid_http_method(self):
+        try:
+            self.dsl.poop
+            raise AssertionError("should have failed")
+        except AttributeError:
+            pass
 
-    def test_configure_get(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.get()
-        assert self.dsl.verb == "GET"
-        assert self.dsl.method_was_called
-
-    def test_configure_delete(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.delete()
-        assert self.dsl.verb == "DELETE"
-        assert self.dsl.method_was_called
-
-    def test_configure_head(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.head()
-        assert self.dsl.verb == "HEAD"
-        assert self.dsl.method_was_called
-
-    def test_configure_trace(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.trace()
-        assert self.dsl.verb == "TRACE"
-        assert self.dsl.method_was_called
-
-    def test_configure_options(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.options()
-        assert self.dsl.verb == "OPTIONS"
-        assert self.dsl.method_was_called
-
-    def test_configure_post(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.post({})
-        assert self.dsl.verb == "POST"
-        assert self.dsl.method_was_called
-
-    def test_configure_patch(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.patch({})
-        assert self.dsl.verb == "PATCH"
-        assert self.dsl.method_was_called
-
-    def test_configure_put(self):
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.put({})
-        assert self.dsl.verb == "PUT"
-        assert self.dsl.method_was_called
-
-    def test_run_async(self):
+    def test_configure_callback(self):
         def callback(*args):
             pass
         
-        self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.async(callback).get()
-        while (not self.dsl.method_was_called):
-            pass
+        self.dsl.async(callback)
+        assert self.dsl.callback == callback
         
-def method_called(to_be_mocked):
-    
-    def fake_process_flow(*args, **kwargs):
-        setattr(to_be_mocked, 'method_was_called', True)
-        
-    to_be_mocked.method_was_called = False
-    return fake_process_flow
