@@ -1,6 +1,10 @@
 from parser import Parser
 from processor import RedirectProcessor, PayloadMarshallingProcessor, ExecuteRequestProcessor
-from thread import start_new_thread
+from threading import Thread
+
+def start_new_thread(target):
+    thread = Thread(target=target)
+    thread.start()
 
 
 class Dsl:
@@ -59,4 +63,4 @@ class Dsl:
         def handle_async():
             self.callback(self.process_flow(payload=payload))
         
-        start_new_thread(handle_async, ())
+        start_new_thread(handle_async)
