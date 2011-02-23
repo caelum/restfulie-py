@@ -37,7 +37,7 @@ class Dsl:
         self.processors.insert(0, feature)
         return self
 
-    def calling_back(self, callback):
+    def async(self, callback):
         self.callback = callback
         return self
 

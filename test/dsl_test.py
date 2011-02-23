@@ -68,7 +68,7 @@ class dsl_test:
             pass
         
         self.dsl.process_flow = method_called(self.dsl)
-        self.dsl.calling_back(callback).get()
+        self.dsl.async(callback).get()
         while (not self.dsl.method_was_called):
             pass
         
