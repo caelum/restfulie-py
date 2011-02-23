@@ -39,16 +39,25 @@ class PayloadMarshallingProcessor(RequestProcessor):
 
 
 class RedirectProcessor(RequestProcessor):
+    """
+    A processor responsible for redirecting a client to another URI when the server
+    returns the location header and a response code related to redirecting.
+    """
+    REDIRECT_CODES = ['201', '301', '302']
+
+    def redirect_location_for(self, result):
+        if (result.code in self.REDIRECT_CODES):
+            return (result.headers.get("Location") or
+                    result.headers.get("location"))
+        return None
 
     def execute(self, chain, request, env={}):
         result = chain.follow(request, env)
-        if result.code == '201' or result.code == '302':
-            location = (result.headers.get("Location") or
-                        result.headers.get("location"))
-            if location:
-                return self.redirect(location,
-                                     request.headers.get("Content-Type"))
-
+        location = self.redirect_location_for(result)
+        if location:
+            return self.redirect(location,
+                                 request.headers.get("Content-Type"))
+            
         return result
 
     def redirect(self, location, request_type):

@@ -6,13 +6,14 @@ def test_simple_request():
 
 
 
-def test_async_request():
+def test_async_request_will_invoke_its_callback():
     
     barrier = Semaphore(0)
     
     def callback(response):
         barrier.release()
     
-    Restfulie.at("http://caelum.com.br/").calling_back(callback).get()
+    Restfulie.at("http://caelum.com.br/cursos").calling_back(callback).get()
     
-    barrier.acquire()    
+    barrier.acquire()
+    
