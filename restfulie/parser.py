@@ -1,4 +1,4 @@
-class Parser:
+class Parser(object):
 
     def __init__(self, processors):
         self.processors = processors

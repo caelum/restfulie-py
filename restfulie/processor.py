@@ -4,7 +4,7 @@ from converters import Converters
 import restfulie
 
 
-class RequestProcessor:
+class RequestProcessor(object):
     pass
 
 

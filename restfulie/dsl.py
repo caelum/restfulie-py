@@ -2,7 +2,7 @@ from processor import RedirectProcessor, PayloadMarshallingProcessor, \
     ExecuteRequestProcessor
 from request import Request
 
-class Dsl:
+class Dsl(object):
     
     HTTP_VERBS = ["get", "delete", "trace", "head", "options", "post", "put", "patch"]
 

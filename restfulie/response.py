@@ -4,7 +4,7 @@ import re
 from links import Links
 
 
-class Response:
+class Response(object):
 
     def __init__(self, response):
 

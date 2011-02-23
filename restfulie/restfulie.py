@@ -1,7 +1,7 @@
 from dsl import Dsl
 
 
-class Restfulie:
+class Restfulie(object):
 
     @staticmethod
     def at(uri):

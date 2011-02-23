@@ -1,7 +1,7 @@
 import dsl
 
 
-class OpenSearchDescription:
+class OpenSearchDescription(object):
 
     def __init__(self, element_tree):
         self.url_type = 'application/rss+xml'

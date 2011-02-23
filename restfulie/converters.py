@@ -4,7 +4,7 @@ from opensearch import OpenSearchDescription
 from links import Links
 
 
-class Converters:
+class Converters(object):
 
     types = {}
 
@@ -17,7 +17,7 @@ class Converters:
         return Converters.types.get(a_type) or XmlConverter()
 
 
-class JsonConverter:
+class JsonConverter(object):
     def marshal(self, content):
         return json.dumps(content)
 
@@ -36,7 +36,7 @@ class _dict2obj(object):
                 setattr(self, key, d)
 
 
-class XmlConverter:
+class XmlConverter(object):
     def marshal(self, content):
         return ElementTree.tostring(self._dict_to_etree(content))
 
@@ -83,7 +83,7 @@ class XmlConverter:
         return e
 
 
-class OpenSearchConverter:
+class OpenSearchConverter(object):
     def marshal(self, content):
         return XmlConverter().marshal(content)
 
@@ -92,7 +92,7 @@ class OpenSearchConverter:
         return OpenSearchDescription(e_tree)
 
 
-class PlainConverter:
+class PlainConverter(object):
     def marshal(self, content):
         return content
 

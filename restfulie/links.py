@@ -1,7 +1,7 @@
 import dsl
 
 
-class Link:
+class Link(object):
 
     def __init__(self, link):
         self.href = link.get('href')
