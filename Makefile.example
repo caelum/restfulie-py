@@ -8,26 +8,24 @@ NOSETESTS="nosetests"
 
 # TARGETS
 
-all: install test
+all: test install
 
 dev: devinstall test
-
-test:
-	${PYTHON} test/httpserver.py > /dev/null 2> /dev/null &
-	${NOSETESTS} test
-	curl http://localhost:20144/stop > /dev/null 2> /dev/null
 
 deps:
 	${EASYINSTALL} httplib2
 	${EASYINSTALL} nose
 	${EASYINSTALL} mockito
-	${EASYINSTALL} lxml
 
 devinstall: deps
 	${PYTHON} setup.py develop
 
-install: deps
+install:
 	${PYTHON} setup.py install
 
-.PHONY: devinstall deps test
-
+test:
+	${PYTHON} test/httpserver.py > /dev/null 2> /dev/null &
+	${NOSETESTS} test
+	curl http://localhost:20144/stop > /dev/null 2> /dev/null
+	
+.PHONY: deps devinstall install test
