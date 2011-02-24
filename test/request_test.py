@@ -16,13 +16,13 @@ class http_method_test:
         self.dsl = mock(Dsl)
         self.method = Request(self.dsl)
 
-    def test_call_synchronous(self):
+    def should_make_synchronous_invocations_if_callback_is_not_configured(self):
         self.dsl.callback = None
         self.method._process_flow = callable_mock()
         self.method()
         assert self.method._process_flow.called == 1
     
-    def test_call_asynchronous(self):
+    def should_make_asynchronous_invocations_if_callback_is_configured(self):
         self.dsl.callback = self.test_call_synchronous
         self.method._process_async_flow = callable_mock()
         self.method()
