@@ -1,11 +1,9 @@
 from restfulie import Restfulie
+from restfulie.dsl import Dsl
 
-def test_restfulie_at():
-    """
-    Running Restfulie.at("www.caelum.com.br") should return
-    a Request object with this URI
-    """
-
-    assert Restfulie.at("www.caelum.com.br")
-
+class restfulie_test:
+    
+    def should_return_a_dsl_object(self):
+        assert type(Restfulie.at("www.caelum.com.br")) == Dsl
+    
 
