@@ -63,7 +63,7 @@ h2. Running tests
 
 On project root, run:
 
-@$ make test $@
+@$ make test@
 
 To run restfulie-restbuy integration test, first start "restfulie-restbuy":https://github.com/caelum/restfulie-restbuy server and run:
 
