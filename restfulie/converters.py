@@ -55,32 +55,8 @@ class XmlConverter(object):
             tree.text = str(content)
 
     def unmarshal(self, content):
-        'Returns an ElementTree Enhanced'
         e = ElementTree.fromstring(content)
-        return self._enhance_element_tree(e)
-
-    def _enhance_element_tree(self, e):
-        for element in e.getiterator():
-            for child in list(element):
-                if len(element.findall(child.tag)) > 1:
-                    setattr(element, child.tag, element.findall(child.tag))
-                elif len(list(child)) == 0:
-                    setattr(element, child.tag, child.text)
-                else:
-                    setattr(element, child.tag, element.find(child.tag))
-
-        l = []
-        for element in e.getiterator('link'):
-            d = {'href': element.attrib.get('href'),
-                 'rel': element.attrib.get('rel'),
-                 'type': element.attrib.get('type') or 'application/xml'}
-
-            l.append(d)
-
-        e.links = lambda: Links(l)
-        e.link = lambda x: e.links().get(x)
-
-        return e
+        return XMLResource(e)
 
 
 class OpenSearchConverter(object):
