@@ -23,7 +23,7 @@ class http_method_test:
         assert self.method._process_flow.called == 1
     
     def should_make_asynchronous_invocations_if_callback_is_configured(self):
-        self.dsl.callback = self.test_call_synchronous
+        self.dsl.callback = lambda : None
         self.method._process_async_flow = callable_mock()
         self.method()
         assert self.method._process_async_flow.called == 1
