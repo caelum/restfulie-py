@@ -14,6 +14,7 @@ class Dsl(object):
         self.headers = {'Content-Type': 'application/xml',
                         'Accept': 'application/xml'}
         self.callback = None
+        self.callback_args = ()
 
     def __getattr__(self, name):
         if (self._is_verb(name)):
@@ -29,8 +30,9 @@ class Dsl(object):
         self.processors.insert(0, feature)
         return self
 
-    def async(self, callback):
+    def async(self, callback, args=()):
         self.callback = callback
+        self.callback_args = args
         return self
 
     def as_(self, content_type):
