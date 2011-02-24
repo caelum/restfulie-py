@@ -6,9 +6,6 @@ SimpleHTTPRequestHandler
 
 class RequestHandler(BaseHTTPRequestHandler):
     
-    def _response(self):
-        return StringIO()
-    
     def do_GET(self, *args, **kwargs):
         if (self.path == "/stop"):
             self.send_response(200)
