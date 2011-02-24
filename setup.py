@@ -22,6 +22,6 @@ setup(name='restfulie',
           "Programming Language :: Python",
       ],
       test_suite = "nose.collector",
-      install_requires= ['httplib2>=0.6.0'],
+      install_requires= ['httplib2>=0.6.0', 'lxml'],
       packages=['restfulie'])
 

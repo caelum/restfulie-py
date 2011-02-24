@@ -50,9 +50,11 @@ On project root, run:
 
 h2. Installing Restfulie for development
 
-On project root, run:
+First, make sure you have all the required dependencies:
 
-@$ make deps $@
+@$ make deps@
+
+Then, make installation:
 
 @$ python setup.py develop@
 
