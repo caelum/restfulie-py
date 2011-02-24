@@ -57,7 +57,7 @@ First, create your @Makefile@ based on @Makefile.example@.
 
 Then, make the installation:
 
-@$ make devinstall@
+@$ make dev@
 
 The required dependencies should be installed automatically.
 
@@ -85,3 +85,4 @@ h2. Team
 "Pedro Matiello":http://pmatiello.appspot.com/
 "Rodrigo Manhães":https://github.com/rodrigomanhaes
 "Tarsis Azevedo":https://github.com/tarsis
+
