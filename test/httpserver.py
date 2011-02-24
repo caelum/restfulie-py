@@ -10,11 +10,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         return StringIO()
     
     def do_GET(self, *args, **kwargs):
-        if (self.path == "/hello"):
-            self.wfile.write("Hello, world!")
         if (self.path == "/stop"):
             self.send_response(200)
             httpd.socket.close()
+        else:
+            self.wfile.write("Response for %s" % self.path)
             
             
 server_address = ('', 20144)
