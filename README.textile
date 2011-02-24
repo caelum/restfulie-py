@@ -77,11 +77,11 @@ h2. Team
 
 "Alexandre Atoji":https://github.com/atoji
 "Andrew Toshiaki Nakayama Kurauchi":https://github.com/toshikurauchi
-"Rodrigo Manhães":https://github.com/rodrigomanhaes
-"Douglas Camata":https://github.com/douglascamata
-"Hugo Lopes Tavares":https://github.com/hugobr
-"Tarsis Azevedo":https://github.com/tarsis
 "BecaMotta":https://github.com/BecaMotta
-"Marianna Reis":https://github.com/mariannareis
+"Douglas Camata":https://github.com/douglascamata
 "Guilherme Silveira":https://github.com/guilhermesilveira
+"Hugo Lopes Tavares":https://github.com/hugobr
+"Marianna Reis":https://github.com/mariannareis
 "Pedro Matiello":http://pmatiello.appspot.com/
+"Rodrigo Manhães":https://github.com/rodrigomanhaes
+"Tarsis Azevedo":https://github.com/tarsis
