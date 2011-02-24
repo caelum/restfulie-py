@@ -23,7 +23,5 @@ setup(name='restfulie',
       ],
       test_suite = "nose.collector",
       install_requires= ['httplib2>=0.6.0'],
-      setup_requires=['nose>=0.11'],
-      tests_require=[ 'mockito>=0.5.1'],
       packages=['restfulie'])
 
