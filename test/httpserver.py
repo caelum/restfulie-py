@@ -1,6 +1,5 @@
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from SimpleHTTPServer import SimpleHTTPRequestHandler
-from StringIO import StringIO
 
 SimpleHTTPRequestHandler
 
