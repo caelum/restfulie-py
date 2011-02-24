@@ -2,11 +2,15 @@
 
 # SETUP
 
-PYTHON="`pwd`/env/bin/python"
-EASYINSTALL="`pwd`/env/bin/easy_install"
-NOSETESTS="`pwd`/env/bin/nosetests"
+PYTHON="python"
+EASYINSTALL="easy_install"
+NOSETESTS="nosetests"
 
 # TARGETS
+
+all: install test
+
+dev: devinstall test
 
 test:
 	${PYTHON} test/httpserver.py > /dev/null 2> /dev/null &
@@ -22,4 +26,8 @@ deps:
 devinstall: deps
 	${PYTHON} setup.py develop
 
+install: deps
+	${PYTHON} setup.py install
+
 .PHONY: devinstall deps test
+
