@@ -1,6 +1,7 @@
-h2. <a href="https://github.com/caelum/restfulie/wiki">Documentation Wiki</a>
+h1. restfulie-py
 
-h2. One minute guide
+
+h2. Introduction
 
 This is a one minute guide to get you going with Restfulie Python
 We are ready to go, hypermedia supported:
@@ -42,21 +43,23 @@ Car
 
 This is it. Adding hypermedia capabilities and following links. Now its time to use it in the <b>right way</b>.
 
+
 h2. Installing Restfulie
 
 On project root, run:
 
 @$ python setup.py install@
 
+
 h2. Installing Restfulie for development
 
-First, make sure you have all the required dependencies:
+First, create your @Makefile@ based on @Makefile.example@.
 
-@$ make deps@
+Then, make the installation:
 
-Then, make installation:
+@$ make devinstall@
 
-@$ python setup.py develop@
+The required dependencies should be installed automatically.
 
 
 h2. Running tests
@@ -68,6 +71,7 @@ On project root, run:
 To run restfulie-restbuy integration test, first start "restfulie-restbuy":https://github.com/caelum/restfulie-restbuy server and run:
 
 @$ python setup.py nosetests -i "spec|should"@
+
 
 h2. Team
 

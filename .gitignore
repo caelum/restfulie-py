@@ -4,3 +4,4 @@
 env/
 restfulie.egg-info/
 dist/
+Makefile

@@ -19,4 +19,7 @@ deps:
 	${EASYINSTALL} mockito
 	${EASYINSTALL} lxml
 
-.PHONY: deps test
+devinstall: deps
+	${PYTHON} setup.py develop
+
+.PHONY: devinstall deps test
