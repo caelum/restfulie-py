@@ -5,23 +5,40 @@ from links import Links
 
 
 class Converters(object):
+    """
+    Utility methods for converters.
+    """
 
     types = {}
 
     @staticmethod
     def register(a_type, converter):
+        "Register a converter for the given type."
         Converters.types[a_type] = converter
 
     @staticmethod
     def marshaller_for(a_type):
+        """
+        Return a converter for the given type.
+        """
         return Converters.types.get(a_type) or XmlConverter()
 
 
 class JsonConverter(object):
+    """
+    Converts objects from and to JSON.
+    """
+    
     def marshal(self, content):
+        """
+        Produces a JSON representation of the given content.
+        """
         return json.dumps(content)
 
     def unmarshal(self, json_content):
+        """
+        Produces an object for a given JSON content.
+        """
         return _dict2obj(json.loads(json_content))
 
 
@@ -37,7 +54,14 @@ class _dict2obj(object):
 
 
 class XmlConverter(object):
+    """
+    Converts objects from and to XML.
+    """
+    
     def marshal(self, content):
+        """
+        Produces a XML representation of the given content.
+        """
         return ElementTree.tostring(self._dict_to_etree(content))
 
     def _dict_to_etree(self, content):
@@ -55,7 +79,9 @@ class XmlConverter(object):
             tree.text = str(content)
 
     def unmarshal(self, content):
-        'Returns an ElementTree Enhanced'
+        """
+        Produces an ElementTree object for a given XML content.
+        """
         e = ElementTree.fromstring(content)
         return self._enhance_element_tree(e)
 

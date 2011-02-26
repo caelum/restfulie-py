@@ -3,10 +3,16 @@ from processor import RedirectProcessor, PayloadMarshallingProcessor, \
 from request import Request
 
 class Dsl(object):
+    """
+    Configuration object for requests at a given URI.
+    """
     
-    HTTP_VERBS = ["get", "delete", "trace", "head", "options", "post", "put", "patch"]
+    HTTP_VERBS = ['delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace']
 
     def __init__(self, uri):
+        """
+        Initialize the configuration for requests at the given URI.
+        """
         self.uri = uri
         self.processors = [RedirectProcessor(),
                            PayloadMarshallingProcessor(),
@@ -17,6 +23,12 @@ class Dsl(object):
         self.callback_args = ()
 
     def __getattr__(self, name):
+        """
+        Perform an HTTP request. This method supports calls to the following methods:
+        delete, get, head, options, patch, post, put, trace
+        
+        Once the HTTP call is performed, a response is returned (unless the async method is used).
+        """
         if (self._is_verb(name)):
             self.verb = name.upper()
             return Request(self)
@@ -27,10 +39,18 @@ class Dsl(object):
         return name in self.HTTP_VERBS
 
     def use(self, feature):
+        """
+        Register a feature at this configuration.
+        """
         self.processors.insert(0, feature)
         return self
 
     def async(self, callback, args=()):
+        """
+        Use asynchronous calls. A HTTP call performed through this object will return immediately,
+        giving None as response. Once the request is completed, the callback function is called
+        and the response and the optional extra args defined in args are passed as parameters.  
+        """
         self.callback = callback
         self.callback_args = args
         return self
@@ -41,6 +61,9 @@ class Dsl(object):
         return self
 
     def accepts(self, content_type):
+        """
+        Configure the accepted response format.
+        """
         self.headers['Accept'] = content_type
         return self
     
