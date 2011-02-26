@@ -4,13 +4,21 @@ from threading import Thread
 
 class Request(object):
     """
-    Execute HTTP requests given a configuration.
+    HTTP request.
     """
     
     def __init__(self, config):
+        """
+        Initialize an HTTP request instance for a given configuration.
+        """
         self.config = config
         
     def __call__(self, payload=None):
+        """
+        Perform the request
+        
+        The optional payload argument is sent to the server.
+        """
         if (self.config.callback is None):
             return self._process_flow(payload)
         else:
