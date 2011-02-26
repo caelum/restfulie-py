@@ -27,7 +27,7 @@ class Request(object):
     def _process_async_flow(self, payload):
         
         def handle_async():
-            self.config.callback(self._process_flow(payload=payload))
+            self.config.callback(self._process_flow(payload=payload), *self.config.callback_args)
         
         self._start_new_thread(handle_async)
     
