@@ -1,5 +1,7 @@
+from response import Response, LazyResponse
 from parser import Parser
 from threading import Thread
+from multiprocessing import Process, Pipe
 
 
 class Request(object):
@@ -34,11 +36,15 @@ class Request(object):
 
     def _process_async_flow(self, payload):
         
+        self.config.pipe, child_pipe = Pipe()
+        
         def handle_async():
             self.config.callback(self._process_flow(payload=payload), *self.config.callback_args)
         
-        self._start_new_thread(handle_async)
+        self._start_new_process(handle_async)
+        
+        return LazyResponse(child_pipe)
     
-    def _start_new_thread(self, target):
-        thread = Thread(target=target)
-        thread.start()
+    def _start_new_process(self, target):
+        process = Process(target=target)
+        process.start()
