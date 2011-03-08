@@ -22,7 +22,7 @@ class ExecuteRequestProcessor(RequestProcessor):
                                          headers=request.headers)
 
         resource = Response(response)
-        if hasattr(request, 'callback') and callable(request.callback):
+        if request.is_async:
             request.pipe.send(resource)
 
         return resource
