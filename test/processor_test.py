@@ -11,6 +11,7 @@ class request_processor_test:
         request.headers = {"Content-Type": "application/xml"}
         request.verb = "GET"
         request.uri = "http://www.caelum.com.br"
+        request.callback = None
 
         when(http).request(request.uri, request.verb, headers=request.headers).thenReturn(response)
 
@@ -30,6 +31,7 @@ class request_processor_test:
         request.headers = {"Content-Type": "application/xml"}
         request.verb = "GET"
         request.uri = "http://www.caelum.com.br"
+        request.callback = None
 
         when(http).request(request.uri, request.verb, env['body'], request.headers).thenReturn(response)
 
