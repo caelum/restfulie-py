@@ -22,6 +22,8 @@ class ExecuteRequestProcessor(RequestProcessor):
                                          headers=request.headers)
 
         resource = Response(response)
+        if hasattr(request, 'callback') and callable(request.callback):
+            request.pipe.send(resource)
 
         return resource
 
