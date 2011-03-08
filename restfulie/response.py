@@ -6,15 +6,13 @@ from links import Links
 
 class Response(object):
 
-    def __init__(self, response):
-
+    def __init__(self, response, child_pipe=None):    
         self.response = response
         self.headers = self.response[0]
         self.code = self.response[0]['status']
         self.body = self.response[1]
 
     def resource(self):
-
         if 'content-type' in self.response[0]:
             contenttype = self.response[0]['content-type'].split(';')[0]
         else:
@@ -47,3 +45,15 @@ class Response(object):
                re.search('type="(.*)"', rest).group(1))
 
         return {'href': uri, 'rel': rel, 'type': tpe}
+
+
+class LazyResponse(object):
+    
+    def __init__(self, response_pipe):
+        self._response_pipe = response_pipe
+    
+    def __getattr__(self, attr):
+        if self._response_pipe is not None:
+            self._response = self._response_pipe.recv()
+            self._response_pipe = None
+        return getattr(self._response, attr)
