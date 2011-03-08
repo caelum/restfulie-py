@@ -19,6 +19,7 @@ class Dsl(object):
                            ExecuteRequestProcessor(), ]
         self.headers = {'Content-Type': 'application/xml',
                         'Accept': 'application/xml'}
+        self.is_async = False
         self.callback = None
         self.callback_args = ()
 
@@ -45,12 +46,13 @@ class Dsl(object):
         self.processors.insert(0, feature)
         return self
 
-    def async(self, callback, args=()):
+    def async(self, callback=None, args=()):
         """
         Use asynchronous calls. A HTTP call performed through this object will return immediately,
         giving None as response. Once the request is completed, the callback function is called
         and the response and the optional extra args defined in args are passed as parameters.  
         """
+        self.is_async = True
         self.callback = callback
         self.callback_args = args
         return self
