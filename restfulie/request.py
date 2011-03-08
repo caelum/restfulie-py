@@ -21,7 +21,7 @@ class Request(object):
         
         The optional payload argument is sent to the server.
         """
-        if (self.config.callback is None):
+        if (not self.config.is_async):
             return self._process_flow(payload)
         else:
             return self._process_async_flow(payload)
@@ -39,7 +39,10 @@ class Request(object):
         self.config.pipe, child_pipe = Pipe()
         
         def handle_async():
-            self.config.callback(self._process_flow(payload=payload), *self.config.callback_args)
+            if self.config.is_async and self.config.callback is None:
+                self._process_flow(payload=payload)
+            else:
+                self.config.callback(self._process_flow(payload=payload), *self.config.callback_args)
         
         self._start_new_process(handle_async)
         
