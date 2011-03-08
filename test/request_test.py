@@ -19,12 +19,21 @@ class http_method_test:
 
     def should_make_synchronous_invocations_if_callback_is_not_configured(self):
         self.dsl.callback = None
+        self.dsl.is_async = False
         self.request._process_flow = callable_mock()
         self.request()
         assert self.request._process_flow.called == 1
     
     def should_make_asynchronous_invocations_if_callback_is_configured(self):
         self.dsl.callback = lambda : None
+        self.dsl.is_async = True
+        self.request._process_async_flow = callable_mock()
+        self.request()
+        assert self.request._process_async_flow.called == 1
+
+    def should_make_asynchronous_invocations_if_callback_is_configured(self):
+        self.dsl.callback = None
+        self.dsl.is_async = True
         self.request._process_async_flow = callable_mock()
         self.request()
         assert self.request._process_async_flow.called == 1
@@ -36,6 +45,7 @@ class http_method_test:
         def callback(request):
             queue.put(True)
         
+        self.dsl.is_async = True
         self.dsl.callback = callback
         self.dsl.callback_args = ()
         self.request._process_flow = lambda payload : None
@@ -51,6 +61,7 @@ class http_method_test:
             assert (arg1, arg2, arg3) == (1, 2, 3)
             queue.put(True)
         
+        self.dsl.is_async = True
         self.dsl.callback = callback
         self.dsl.callback_args = (1, 2, 3)
         self.request._process_flow = lambda payload : None

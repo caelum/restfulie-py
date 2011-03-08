@@ -35,5 +35,8 @@ class integration_test:
         assert "/hello" in r.body
 
         
-    def should_perform_assynchronous_requests_with_arguments_to_the_callback_function(self):
-        pass
+    def should_perform_assynchronous_requests_without_callback_function(self):
+        
+        r = Restfulie.at("http://localhost:20144/hello").async().get()
+        assert "Response for" in r.body
+        assert "/hello" in r.body

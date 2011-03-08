@@ -12,6 +12,7 @@ class request_processor_test:
         request.verb = "GET"
         request.uri = "http://www.caelum.com.br"
         request.callback = None
+        request.is_async = False
 
         when(http).request(request.uri, request.verb, headers=request.headers).thenReturn(response)
 
@@ -32,6 +33,7 @@ class request_processor_test:
         request.verb = "GET"
         request.uri = "http://www.caelum.com.br"
         request.callback = None
+        request.is_async = False
 
         when(http).request(request.uri, request.verb, env['body'], request.headers).thenReturn(response)
 
