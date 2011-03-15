@@ -7,6 +7,13 @@ class integration_test:
         body = Restfulie.at("http://localhost:20144/hello").get().body
         assert "Response for" in body
         assert "/hello" in body
+        
+    
+    def should_perform_ordinary_requests_with_simple_auth(self):
+        r = Restfulie.at("http://test:test@localhost:20144/auth")
+        response = r.get()
+        body = response.body
+        assert "worked" in body
 
     
     def should_perform_assynchronous_requests(self):

@@ -20,6 +20,11 @@ class dsl_test:
             method = self.dsl.__getattr__(verb)
             assert method.config == self.dsl
             assert self.dsl.verb == verb.upper()
+            
+    def should_parse_simple_auth_credentials(self):
+        dsl = Dsl('http://test:test@caelum.com.br')
+        assert dsl.credentials == "test:test"
+        assert dsl.uri == "http://caelum.com.br"
     
     def should_fail_when_asked_to_use_an_invalid_http_method(self):
         try:
