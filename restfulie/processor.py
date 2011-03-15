@@ -1,3 +1,4 @@
+from base64 import encodestring
 import httplib2
 from response import Response
 from converters import Converters
@@ -14,6 +15,8 @@ class ExecuteRequestProcessor(RequestProcessor):
         self.http = httplib2.Http()
 
     def execute(self, chain, request, env={}):
+        if request.credentials is not None:
+            request.headers['authorization'] = "Basic %s" % encodestring(request.credentials)[:-2]
         if "body" in env:
             response = self.http.request(request.uri, request.verb,
                                          env.get("body"), request.headers)
