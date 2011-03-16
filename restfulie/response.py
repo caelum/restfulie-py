@@ -6,7 +6,7 @@ from links import Links
 
 class Response(object):
 
-    def __init__(self, response, child_pipe=None):    
+    def __init__(self, response):    
         self.response = response
         self.headers = self.response[0]
         self.code = self.response[0]['status']
