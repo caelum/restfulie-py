@@ -16,7 +16,7 @@ class ExecuteRequestProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         if request.credentials is not None:
-            request.headers['authorization'] = "Basic %s" % encodestring(request.credentials)[:-2]
+            request.headers['authorization'] = "Basic %s" % encodestring(request.credentials)[:-1]
         if "body" in env:
             response = self.http.request(request.uri, request.verb,
                                          env.get("body"), request.headers)
