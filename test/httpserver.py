@@ -12,7 +12,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             if not self.path == "/auth":
                 self.wfile.write("Response for %s %s" % (self.path, str(self.headers)))
             else:
-                if self.headers.getheader('authorization') == ("Basic %s" % encodestring('test:test'))[:-2]:
+                if self.headers.getheader('authorization') == "Basic %s" % encodestring('test:test')[:-1]:
                     self.wfile.write('worked')
         
             
