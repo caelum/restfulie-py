@@ -16,7 +16,8 @@ class ExecuteRequestProcessor(RequestProcessor):
 
     def execute(self, chain, request, env={}):
         if request.credentials is not None:
-            request.headers['authorization'] = "Basic %s" % encodestring(request.credentials)[:-1]
+            encoded_credentials = encodestring(request.credentials)[:-1]
+            request.headers['authorization'] = "Basic %s" % encoded_credentials
         if "body" in env:
             response = self.http.request(request.uri, request.verb,
                                          env.get("body"), request.headers)
@@ -45,8 +46,9 @@ class PayloadMarshallingProcessor(RequestProcessor):
 
 class RedirectProcessor(RequestProcessor):
     """
-    A processor responsible for redirecting a client to another URI when the server
-    returns the location header and a response code related to redirecting.
+    A processor responsible for redirecting a client to another URI when the
+    server returns the location header and a response code related to
+    redirecting.
     """
     REDIRECT_CODES = ['201', '301', '302']
 
@@ -62,7 +64,7 @@ class RedirectProcessor(RequestProcessor):
         if location:
             return self.redirect(location,
                                  request.headers.get("Content-Type"))
-            
+
         return result
 
     def redirect(self, location, request_type):

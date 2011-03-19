@@ -5,7 +5,7 @@ class Restfulie(object):
     """
     Restfulie DSL entry point.
     """
-    
+
     @staticmethod
     def at(uri):
         """

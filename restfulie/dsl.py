@@ -2,12 +2,14 @@ from processor import RedirectProcessor, PayloadMarshallingProcessor, \
     ExecuteRequestProcessor
 from request import Request
 
+
 class Dsl(object):
     """
     Configuration object for requests at a given URI.
     """
-    
-    HTTP_VERBS = ['delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace']
+
+    HTTP_VERBS = ['delete', 'get', 'head', 'options', 'patch', 'post', 'put',
+                  'trace']
 
     def __init__(self, uri):
         """
@@ -25,24 +27,25 @@ class Dsl(object):
         self.is_async = False
         self.callback = None
         self.callback_args = ()
-        
+
     def _parse_simple_auth(self, uri):
         if '@' in uri:
             protocol_and_auth, location = uri.split('@')
             protocol, user_and_pass = protocol_and_auth.split('//')
             return user_and_pass
         return None
-            
+
     def _remove_auth_from_uri(self, uri):
         protocol_and_location = uri.split(self.credentials + '@')
         return ''.join(protocol_and_location)
 
     def __getattr__(self, name):
         """
-        Perform an HTTP request. This method supports calls to the following methods:
-        delete, get, head, options, patch, post, put, trace
-        
-        Once the HTTP call is performed, a response is returned (unless the async method is used).
+        Perform an HTTP request. This method supports calls to the following
+        methods: delete, get, head, options, patch, post, put, trace
+
+        Once the HTTP call is performed, a response is returned (unless the
+        async method is used).
         """
         if (self._is_verb(name)):
             self.verb = name.upper()
@@ -62,9 +65,10 @@ class Dsl(object):
 
     def async(self, callback=None, args=()):
         """
-        Use asynchronous calls. A HTTP call performed through this object will return immediately,
-        giving None as response. Once the request is completed, the callback function is called
-        and the response and the optional extra args defined in args are passed as parameters.  
+        Use asynchronous calls. A HTTP call performed through this object will
+        return immediately, giving None as response. Once the request is
+        completed, the callback function is called and the response and the
+        optional extra args defined in args are passed as parameters.
         """
         self.is_async = True
         self.callback = callback
@@ -82,4 +86,3 @@ class Dsl(object):
         """
         self.headers['Accept'] = content_type
         return self
-    

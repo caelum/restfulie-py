@@ -28,7 +28,7 @@ class JsonConverter(object):
     """
     Converts objects from and to JSON.
     """
-    
+
     def marshal(self, content):
         """
         Produces a JSON representation of the given content.
@@ -57,7 +57,7 @@ class XmlConverter(object):
     """
     Converts objects from and to XML.
     """
-    
+
     def marshal(self, content):
         """
         Produces a XML representation of the given content.

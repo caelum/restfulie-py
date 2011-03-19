@@ -6,7 +6,7 @@ from links import Links
 
 class Response(object):
 
-    def __init__(self, response):    
+    def __init__(self, response):
         self.response = response
         self.headers = self.response[0]
         self.code = self.response[0]['status']
@@ -48,10 +48,10 @@ class Response(object):
 
 
 class LazyResponse(object):
-    
+
     def __init__(self, response_pipe):
         self._response_pipe = response_pipe
-    
+
     def __getattr__(self, attr):
         if self._response_pipe is not None:
             self._response = self._response_pipe.recv()

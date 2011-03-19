@@ -1,5 +1,6 @@
 from restfulie.response import Response
 
+
 def trivial_test():
 
     response = ({'status': 200}, 'Hello')
@@ -8,12 +9,15 @@ def trivial_test():
     assert r.body == 'Hello'
     assert r.code == 200
 
+
 def resource_test():
 
-    response = ({'status': 200, 'content-type':'text/plain; charset=utf-8'}, 'Hello')
+    response = ({'status': 200, 'content-type': \
+                 'text/plain; charset=utf-8'}, 'Hello')
 
     r = Response(response)
     assert r.resource() == 'Hello'
+
 
 def link_test():
 
