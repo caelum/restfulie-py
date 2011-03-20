@@ -25,7 +25,7 @@ class integration_test:
             barrier.release()
 
         r = Restfulie.at("http://localhost:20144/hello").async(callback).get()
-#        barrier.acquire()
+        barrier.acquire()
         assert "Response for" in r.body
         assert "/hello" in r.body
 
@@ -42,7 +42,7 @@ class integration_test:
 
         r = Restfulie.at("http://localhost:20144/hello")
         r = r.async(callback, args=("first", "second")).get()
-#        barrier.acquire()
+        barrier.acquire()
         assert "Response for" in r.body
         assert "/hello" in r.body
 
