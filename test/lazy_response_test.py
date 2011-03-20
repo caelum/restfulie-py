@@ -1,6 +1,6 @@
 from multiprocessing import Pipe
 from restfulie.response import LazyResponse, Response
-from mockito import mock, when, verify
+from mockito import mock, verify
 
 
 def forwarding_attrs_from_real_response_test():

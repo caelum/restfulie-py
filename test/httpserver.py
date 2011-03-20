@@ -1,6 +1,5 @@
 from base64 import encodestring
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from SimpleHTTPServer import SimpleHTTPRequestHandler
 
 
 class RequestHandler(BaseHTTPRequestHandler):

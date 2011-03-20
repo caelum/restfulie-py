@@ -30,8 +30,8 @@ class Dsl(object):
 
     def _parse_simple_auth(self, uri):
         if '@' in uri:
-            protocol_and_auth, location = uri.split('@')
-            protocol, user_and_pass = protocol_and_auth.split('//')
+            protocol_and_auth, location = uri.split('@')            #@UnusedVariable
+            protocol, user_and_pass = protocol_and_auth.split('//') #@UnusedVariable
             return user_and_pass
         return None
 
