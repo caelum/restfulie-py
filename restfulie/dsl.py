@@ -1,5 +1,5 @@
 from processor import RedirectProcessor, PayloadMarshallingProcessor, \
-    ExecuteRequestProcessor
+    ExecuteRequestProcessor, AuthenticationProcessor
 from request import Request
 
 
@@ -15,11 +15,10 @@ class Dsl(object):
         """
         Initialize the configuration for requests at the given URI.
         """
-        self.credentials = self._parse_simple_auth(uri)
+        self.credentials = None
         self.uri = uri
-        if self.credentials:
-            self.uri = self._remove_auth_from_uri(self.uri)
-        self.processors = [RedirectProcessor(),
+        self.processors = [AuthenticationProcessor(),
+                           RedirectProcessor(),
                            PayloadMarshallingProcessor(),
                            ExecuteRequestProcessor(), ]
         self.headers = {'Content-Type': 'application/xml',
@@ -27,17 +26,6 @@ class Dsl(object):
         self.is_async = False
         self.callback = None
         self.callback_args = ()
-
-    def _parse_simple_auth(self, uri):
-        if '@' in uri:
-            protocol_and_auth, location = uri.split('@')            #@UnusedVariable
-            protocol, user_and_pass = protocol_and_auth.split('//') #@UnusedVariable
-            return user_and_pass
-        return None
-
-    def _remove_auth_from_uri(self, uri):
-        protocol_and_location = uri.split(self.credentials + '@')
-        return ''.join(protocol_and_location)
 
     def __getattr__(self, name):
         """
@@ -85,4 +73,8 @@ class Dsl(object):
         Configure the accepted response format.
         """
         self.headers['Accept'] = content_type
+        return self
+
+    def auth(self, username, password, method='simple'):
+        self.credentials = (username, password, method)
         return self

@@ -10,7 +10,7 @@ class integration_test:
         assert "/hello" in body
 
     def should_perform_ordinary_requests_with_simple_auth(self):
-        r = Restfulie.at("http://test:test@localhost:20144/auth")
+        r = Restfulie.at("http://localhost:20144/auth").auth('test', 'test')
         response = r.get()
         body = response.body
         assert "worked" in body

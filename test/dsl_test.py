@@ -22,9 +22,14 @@ class dsl_test:
             assert method.config == self.dsl
             assert self.dsl.verb == verb.upper()
 
-    def should_parse_simple_auth_credentials(self):
-        dsl = Dsl('http://test:test@caelum.com.br')
-        assert dsl.credentials == "test:test"
+    def should_configure_simple_auth_credentials(self):
+        dsl = Dsl('http://caelum.com.br').auth('user', 'pass', 'simple')
+        assert dsl.credentials == ('user', 'pass', 'simple')
+        assert dsl.uri == "http://caelum.com.br"
+    
+    def should_configure_simple_auth_if_no_auth_method_is_specified(self):
+        dsl = Dsl('http://caelum.com.br').auth('user', 'pass')
+        assert dsl.credentials == ('user', 'pass', 'simple')
         assert dsl.uri == "http://caelum.com.br"
 
     def should_fail_when_asked_to_use_an_invalid_http_method(self):

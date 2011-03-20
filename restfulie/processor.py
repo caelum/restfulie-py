@@ -9,15 +9,28 @@ class RequestProcessor(object):
     pass
 
 
+class AuthenticationProcessor(RequestProcessor):
+    
+    def execute(self, chain, request, env):
+        if request.credentials is not None:
+            encoded_credentials = self._encode_credentials(request.credentials)
+            request.headers['authorization'] = "Basic %s" % encoded_credentials
+        return chain.follow(request, env)
+    
+    def _encode_credentials(self, credentials):
+        username = credentials[0]
+        password = credentials[1]
+        method = credentials[2]
+        if (method == 'simple'):
+            return encodestring("%s:%s" % (username, password))[:-1]
+        
+        
 class ExecuteRequestProcessor(RequestProcessor):
 
     def __init__(self):
         self.http = httplib2.Http()
 
     def execute(self, chain, request, env={}):
-        if request.credentials is not None:
-            encoded_credentials = encodestring(request.credentials)[:-1]
-            request.headers['authorization'] = "Basic %s" % encoded_credentials
         if "body" in env:
             response = self.http.request(request.uri, request.verb,
                                          env.get("body"), request.headers)
