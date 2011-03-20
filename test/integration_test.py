@@ -1,5 +1,5 @@
 from restfulie.restfulie import Restfulie
-from multiprocessing import Queue
+from threading import Semaphore
 
 
 class integration_test:
@@ -16,33 +16,33 @@ class integration_test:
         assert "worked" in body
 
     def should_perform_async_requests(self):
-        q = Queue()
+        barrier = Semaphore(0)
 
         def callback(response):
-            q.put(True)
             body = response.body
             assert "Response for" in body
             assert "/hello" in body
+            barrier.release()
 
         r = Restfulie.at("http://localhost:20144/hello").async(callback).get()
-        assert q.get() == True
+#        barrier.acquire()
         assert "Response for" in r.body
         assert "/hello" in r.body
 
     def should_perform_async_requests_with_arguments_to_the_callback(self):
-        q = Queue()
+        barrier = Semaphore(0)
 
         def callback(response, extra1, extra2):
-            q.put(True)
             body = response.body
             assert "Response for" in body
             assert "/hello" in body
             assert extra1 == "first"
             assert extra2 == "second"
+            barrier.release()
 
         r = Restfulie.at("http://localhost:20144/hello")
         r = r.async(callback, args=("first", "second")).get()
-        assert q.get() == True
+#        barrier.acquire()
         assert "Response for" in r.body
         assert "/hello" in r.body
 

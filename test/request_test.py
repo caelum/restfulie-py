@@ -1,7 +1,7 @@
 from restfulie.dsl import Dsl
 from restfulie.request import Request
 from mockito import mock
-from multiprocessing import Queue
+from threading import Semaphore
 
 
 class callable_mock():
@@ -42,11 +42,10 @@ class http_method_test:
         assert self.request._process_async_flow.called == 1
 
     def should_call_callback_function_on_asynchronous_request(self):
-
-        queue = Queue()
+        barrier = Semaphore(0)
 
         def callback(request):
-            queue.put(True)
+            barrier.release()
 
         self.dsl.is_async = True
         self.dsl.callback = callback
@@ -54,15 +53,14 @@ class http_method_test:
         self.request._process_flow = lambda payload: None
         self.request()
 
-        assert queue.get() == True
-        assert queue.empty() == True
+        barrier.acquire()
 
     def should_call_callback_on_async_request_and_pass_arguments(self):
-        queue = Queue()
+        barrier = Semaphore(0)
 
         def callback(request, arg1, arg2, arg3):
             assert (arg1, arg2, arg3) == (1, 2, 3)
-            queue.put(True)
+            barrier.release()
 
         self.dsl.is_async = True
         self.dsl.callback = callback
@@ -70,5 +68,4 @@ class http_method_test:
         self.request._process_flow = lambda payload: None
         self.request()
 
-        assert queue.get() == True
-        assert queue.empty() == True
+        barrier.acquire()
