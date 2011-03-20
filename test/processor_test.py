@@ -6,30 +6,6 @@ from restfulie.processor import ExecuteRequestProcessor, PayloadMarshallingProce
 
 class request_processor_test:
 
-    def test_should_add_credentials_if_they_exist(self):
-        http = mock()
-        credentials = encodestring('test:test')
-
-        response = ({'status': 200}, "body")
-        request = mock()
-        request.headers = {"Content-Type": "application/xml", \
-                           "Authorization": "Basic %s" % credentials}
-        request.verb = "GET"
-        request.uri = "http://www.caelum.com.br"
-        request.callback = None
-        request.is_async = False
-        request.credentials = 'test:test'
-
-        when(http).request(request.uri, request.verb, \
-                           headers=request.headers).thenReturn(response)
-
-        processor = ExecuteRequestProcessor()
-        processor.http = http
-        processor.execute([], request)
-
-        verify(http).request(request.uri, request.verb, \
-                            headers=request.headers)
-
     def test_execute_should_return_a_resource_without_body(self):
 
         http = mock()
