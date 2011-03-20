@@ -1,7 +1,7 @@
 from base64 import encodestring
 from mockito import mock, when, verify
-from restfulie.processor import ExecuteRequestProcessor, \
-                                PayloadMarshallingProcessor, RedirectProcessor
+from restfulie.processor import ExecuteRequestProcessor, PayloadMarshallingProcessor, \
+    RedirectProcessor, AuthenticationProcessor
 
 
 class request_processor_test:
@@ -118,3 +118,23 @@ class redirect_processor_test:
     def test_redirect(self):
         for codex in RedirectProcessor.REDIRECT_CODES:
             self.check_redirect_on(codex)
+
+class authentication_processor_test:
+    
+    def setUp(self):
+        self.chain = mock()
+        self.request = mock()
+        self.request.headers = {}
+    
+    def should_add_simple_auth_credentials_to_request_headers(self):
+        self.request.credentials = ('user', 'pass', 'simple')
+        authprocessor = AuthenticationProcessor()
+        authprocessor.execute(self.chain, self.request, {})
+        assert self.request.headers.has_key('authorization')
+        assert "Basic" in self.request.headers['authorization']
+    
+    def should_not_add_auth_credentials_if_none_is_set(self):
+        self.request.credentials = None
+        authprocessor = AuthenticationProcessor()
+        authprocessor.execute(self.chain, self.request, {})
+        assert not self.request.headers.has_key('authorization')
