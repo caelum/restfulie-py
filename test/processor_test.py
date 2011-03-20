@@ -1,4 +1,3 @@
-from base64 import encodestring
 from mockito import mock, when, verify
 from restfulie.processor import ExecuteRequestProcessor, PayloadMarshallingProcessor, \
     RedirectProcessor, AuthenticationProcessor
