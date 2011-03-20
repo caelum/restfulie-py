@@ -41,13 +41,6 @@ class http_method_test:
         self.request()
         assert self.request._process_async_flow.called == 1
 
-    def should_make_asynchronous_invocations_if_callback_is_configured(self):
-        self.dsl.callback = None
-        self.dsl.is_async = True
-        self.request._process_async_flow = callable_mock()
-        self.request()
-        assert self.request._process_async_flow.called == 1
-
     def should_call_callback_function_on_asynchronous_request(self):
 
         queue = Queue()
