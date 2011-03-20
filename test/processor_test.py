@@ -1,5 +1,5 @@
 from base64 import encodestring
-from mockito import mock, when, verify, any
+from mockito import mock, when, verify
 from restfulie.processor import ExecuteRequestProcessor, \
                                 PayloadMarshallingProcessor, RedirectProcessor
 
@@ -87,7 +87,7 @@ class payload_processor_test:
         env = {'payload': {'product': 'car'}}
 
         processor = PayloadMarshallingProcessor()
-        resource = processor.execute(chain, request, env)
+        processor.execute(chain, request, env)
 
         verify(chain).follow(request, {'body': '<product>car</product>'})
 
@@ -104,7 +104,6 @@ class redirect_processor_test:
         result = mock()
         result.code = code
         result.headers = {'Location': 'http://www.caelum.com.br'}
-        finalresult = mock()
         result.code = '200'
         result.body = "anybody"
         chain = mock()
