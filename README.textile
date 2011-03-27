@@ -34,8 +34,7 @@ from restfulie import Restfulie
 Car
 
 # navigating through hypermedia
->>> item = { 'name': 'New product', 'price': 30 }
->>> result = items.link("self").follow().post(item)
+>>> result = items.link("self").follow().post(name='New product', price=30)
 >>> print result.code
 200
 
