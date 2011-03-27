@@ -15,16 +15,16 @@ class Request(object):
         """
         self.config = config
 
-    def __call__(self, payload=None):
+    def __call__(self, **kwargs):
         """
         Perform the request
 
         The optional payload argument is sent to the server.
         """
         if (not self.config.is_async):
-            return self._process_flow(payload)
+            return self._process_flow(kwargs)
         else:
-            return self._process_async_flow(payload)
+            return self._process_async_flow(kwargs)
 
     def _process_flow(self, payload):
         env = {}
