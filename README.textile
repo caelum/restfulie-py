@@ -34,7 +34,13 @@ from restfulie import Restfulie
 Car
 
 # navigating through hypermedia
+# using kwargs as request parameters
 >>> result = items.link("self").follow().post(name='New product', price=30)
+
+# or, using a dict as request parameters
+>>> parameters = {"name":"New product", "price":30}
+>>> result = items.link("self").follow().post(parameters)
+
 >>> print result.code
 200
 
