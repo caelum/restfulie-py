@@ -3,7 +3,7 @@ from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
 from links import Links
 from resources.xml import XMLResource
-
+from resources.json import JsonResource
 
 class Converters(object):
     """
@@ -40,19 +40,7 @@ class JsonConverter(object):
         """
         Produces an object for a given JSON content.
         """
-        return _dict2obj(json.loads(json_content))
-
-
-class _dict2obj(object):
-    def __init__(self, dict_):
-        for key, value in dict_.items():
-            if isinstance(value, (list, tuple)):
-                d = [_dict2obj(x) if isinstance(x, dict) else x for x in value]
-                setattr(self, key, d)
-            else:
-                d = _dict2obj(value) if isinstance(value, dict) else value
-                setattr(self, key, d)
-
+        return JsonResource(json.loads(json_content))
 
 class XmlConverter(object):
     """
