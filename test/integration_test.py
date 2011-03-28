@@ -15,6 +15,12 @@ class integration_test:
         body = response.body
         assert "This is a test" in body
 
+    def should_perform_requests_with_parameters_as_dict(self):
+        response = Restfulie.at("http://localhost:20144").post({"action":"test"})
+        print response.body
+        body = response.body
+        assert "This is a test" in body
+
     def should_perform_ordinary_requests_with_simple_auth(self):
         r = Restfulie.at("http://localhost:20144/auth").auth('test', 'test')
         response = r.get()
