@@ -2,7 +2,8 @@ import json
 from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
 from links import Links
-
+from resources.xml import XMLResource
+from resources.json import JsonResource
 
 class Converters(object):
     """
@@ -39,19 +40,7 @@ class JsonConverter(object):
         """
         Produces an object for a given JSON content.
         """
-        return _dict2obj(json.loads(json_content))
-
-
-class _dict2obj(object):
-    def __init__(self, dict_):
-        for key, value in dict_.items():
-            if isinstance(value, (list, tuple)):
-                d = [_dict2obj(x) if isinstance(x, dict) else x for x in value]
-                setattr(self, key, d)
-            else:
-                d = _dict2obj(value) if isinstance(value, dict) else value
-                setattr(self, key, d)
-
+        return JsonResource(json.loads(json_content))
 
 class XmlConverter(object):
     """
@@ -83,30 +72,7 @@ class XmlConverter(object):
         Produces an ElementTree object for a given XML content.
         """
         e = ElementTree.fromstring(content)
-        return self._enhance_element_tree(e)
-
-    def _enhance_element_tree(self, e):
-        for element in e.getiterator():
-            for child in list(element):
-                if len(element.findall(child.tag)) > 1:
-                    setattr(element, child.tag, element.findall(child.tag))
-                elif len(list(child)) == 0:
-                    setattr(element, child.tag, child.text)
-                else:
-                    setattr(element, child.tag, element.find(child.tag))
-
-        l = []
-        for element in e.getiterator('link'):
-            d = {'href': element.attrib.get('href'),
-                 'rel': element.attrib.get('rel'),
-                 'type': element.attrib.get('type') or 'application/xml'}
-
-            l.append(d)
-
-        e.links = lambda: Links(l)
-        e.link = lambda x: e.links().get(x)
-
-        return e
+        return XMLResource(e)
 
 
 class OpenSearchConverter(object):
