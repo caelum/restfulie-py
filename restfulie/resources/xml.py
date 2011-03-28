@@ -1,4 +1,4 @@
-from . import Resource
+from restfulie.resources import Resource
 from restfulie.links import Links
 
 class XMLResource(Resource):

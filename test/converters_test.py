@@ -69,5 +69,4 @@ class xml_marshaller_test:
         assert result.img.tag == 'img'
         assert result.img.link[0].text == 'A Link'
         assert len(result.img.link) == 2
-        print result.links
         assert len(result.links()) == 2
