@@ -23,3 +23,6 @@ class Links:
 
     def get(self, rel):
         return self.links.get(rel)
+
+    def __len__(self):
+        return len(self.links)

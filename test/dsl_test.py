@@ -1,6 +1,7 @@
 from restfulie.dsl import Dsl
 from restfulie.processor import ExecuteRequestProcessor
 
+
 class dsl_test:
 
     def setup(self):
@@ -14,13 +15,23 @@ class dsl_test:
     def should_configure_the_content_type(self):
         self.dsl.as_("content")
         assert self.dsl.headers["Content-Type"] == "content"
-        
+
     def should_configure_valid_http_methods(self):
         for verb in Dsl.HTTP_VERBS:
             method = self.dsl.__getattr__(verb)
             assert method.config == self.dsl
             assert self.dsl.verb == verb.upper()
+
+    def should_configure_simple_auth_credentials(self):
+        dsl = Dsl('http://caelum.com.br').auth('user', 'pass', 'simple')
+        assert dsl.credentials == ('user', 'pass', 'simple')
+        assert dsl.uri == "http://caelum.com.br"
     
+    def should_configure_simple_auth_if_no_auth_method_is_specified(self):
+        dsl = Dsl('http://caelum.com.br').auth('user', 'pass')
+        assert dsl.credentials == ('user', 'pass', 'simple')
+        assert dsl.uri == "http://caelum.com.br"
+
     def should_fail_when_asked_to_use_an_invalid_http_method(self):
         try:
             self.dsl.poop
@@ -31,7 +42,6 @@ class dsl_test:
     def should_configure_the_callback_method(self):
         def callback(*args):
             pass
-        
+
         self.dsl.async(callback)
         assert self.dsl.callback == callback
-        

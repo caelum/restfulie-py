@@ -12,6 +12,9 @@ all: test install
 
 dev: devinstall test
 
+console:
+	${PYTHON}
+
 deps:
 	${EASYINSTALL} httplib2
 	${EASYINSTALL} nose
