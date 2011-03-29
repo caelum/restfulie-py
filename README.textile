@@ -39,7 +39,7 @@ Car
 
 # or, using a dict as request parameters
 >>> parameters = {"name":"New product", "price":30}
->>> result = items.link("self").follow().post(parameters)
+>>> result = items.link("self").follow().post(**parameters)
 
 >>> print result.code
 200

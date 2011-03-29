@@ -26,7 +26,7 @@ class dsl_test:
         dsl = Dsl('http://caelum.com.br').auth('user', 'pass', 'simple')
         assert dsl.credentials == ('user', 'pass', 'simple')
         assert dsl.uri == "http://caelum.com.br"
-    
+
     def should_configure_simple_auth_if_no_auth_method_is_specified(self):
         dsl = Dsl('http://caelum.com.br').auth('user', 'pass')
         assert dsl.credentials == ('user', 'pass', 'simple')

@@ -16,7 +16,8 @@ class integration_test:
         assert "This is a test" in body
 
     def should_perform_requests_with_parameters_as_dict(self):
-        response = Restfulie.at("http://localhost:20144").post({"action":"test"})
+        d = {"action": "test"}
+        response = Restfulie.at("http://localhost:20144").post(**d)
         print response.body
         body = response.body
         assert "This is a test" in body
