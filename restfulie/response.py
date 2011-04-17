@@ -5,6 +5,9 @@ from links import Links
 
 
 class Response(object):
+    """
+    Handle and parse a HTTP response
+    """
 
     def __init__(self, response):
         self.response = response
@@ -13,6 +16,9 @@ class Response(object):
         self.body = self.response[1]
 
     def resource(self):
+        """
+        Returns the unmarshalled object of the response body
+        """
         if 'content-type' in self.response[0]:
             contenttype = self.response[0]['content-type'].split(';')[0]
         else:
@@ -22,13 +28,22 @@ class Response(object):
         return converter.unmarshal(self.body)
 
     def links(self):
+        """
+        Returns the Links of the header
+        """
         r = self._link_header_to_array()
         return Links(r)
 
     def link(self, rel):
+        """
+        Get a link from with 'rel' from the header
+        """
         return self.links().get(rel)
 
     def _link_header_to_array(self):
+        """
+        Split links in headers and return a list of dicts
+        """
         values = self.headers['link'].split(',')
         links = []
         for link in values:
@@ -37,6 +52,9 @@ class Response(object):
         return links
 
     def _string_to_hash(self, l):
+        """
+        Parses a link header string to a dictionary
+        """
         uri = re.search('<([^>]*)', l) and re.search('<([^>]*)', l).group(1)
         rest = re.search('.*>(.*)', l) and re.search('.*>(.*)', l).group(1)
         rel = (re.search('rel=(.*)', rest) and
@@ -48,6 +66,9 @@ class Response(object):
 
 
 class LazyResponse(object):
+    """
+    Lazy response for async calls
+    """
 
     def __init__(self, response_pipe):
         self._response_pipe = response_pipe
