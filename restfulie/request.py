@@ -27,6 +27,9 @@ class Request(object):
             return self._process_async_flow(kwargs)
 
     def _process_flow(self, payload):
+        """
+        Put payload environment and start the chain.
+        """
         env = {}
         if payload:
             env = {'payload': payload}
@@ -35,6 +38,9 @@ class Request(object):
         return Parser(procs).follow(self.config, env)
 
     def _process_async_flow(self, payload):
+        """
+        Starts an async chain.
+        """
 
         self.config.pipe, child_pipe = Pipe()
 
