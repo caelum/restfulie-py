@@ -42,6 +42,9 @@ class Dsl(object):
             raise AttributeError(name)
 
     def _is_verb(self, name):
+        """
+        Checks if a string is a HTTP verb
+        """
         return name in self.HTTP_VERBS
 
     def use(self, feature):
@@ -64,6 +67,9 @@ class Dsl(object):
         return self
 
     def as_(self, content_type):
+        """
+        Set up the Content-Type
+        """
         if content_type:
             self.headers["Content-Type"] = content_type
         return self
@@ -76,5 +82,8 @@ class Dsl(object):
         return self
 
     def auth(self, username, password, method='simple'):
+        """
+        Authentication feature. It does simple HTTP auth
+        """
         self.credentials = (username, password, method)
         return self
