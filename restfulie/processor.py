@@ -6,12 +6,15 @@ import restfulie
 
 
 class RequestProcessor(object):
-    pass
+    def execute(self, chain, request, env={}):
+        raise NotImplementedError('Subclasses must implement this method')
 
 
 class AuthenticationProcessor(RequestProcessor):
-
-    def execute(self, chain, request, env):
+    """
+    Processor responsible for make HTTP simple auth
+    """
+    def execute(self, chain, request, env={}):
         if request.credentials is not None:
             encoded_credentials = self._encode_credentials(request.credentials)
             request.headers['authorization'] = "Basic %s" % encoded_credentials
@@ -26,7 +29,10 @@ class AuthenticationProcessor(RequestProcessor):
 
 
 class ExecuteRequestProcessor(RequestProcessor):
-
+    """
+    Processor responsible to get the body from environment and
+    make a request with it.
+    """
     def __init__(self):
         self.http = httplib2.Http()
 
@@ -46,7 +52,9 @@ class ExecuteRequestProcessor(RequestProcessor):
 
 
 class PayloadMarshallingProcessor(RequestProcessor):
-
+    """
+    Processor responsible for marshal the payload in environment.
+    """
     def execute(self, chain, request, env={}):
         if "payload" in env:
             content_type = request.headers.get("Content-Type")
