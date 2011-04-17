@@ -1,4 +1,7 @@
 class Parser(object):
+    """
+    Executes processors ordered by the list
+    """
 
     def __init__(self, processors):
         self.processors = processors
