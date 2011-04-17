@@ -14,7 +14,9 @@ class Converters(object):
 
     @staticmethod
     def register(a_type, converter):
-        "Register a converter for the given type."
+        """
+        Register a converter for the given type.
+        """
         Converters.types[a_type] = converter
 
     @staticmethod
@@ -54,11 +56,17 @@ class XmlConverter(object):
         return ElementTree.tostring(self._dict_to_etree(content))
 
     def _dict_to_etree(self, content):
+        """
+        Receives a dictionary and converts to an ElementTree
+        """
         tree = ElementTree.Element(content.keys()[0])
         self._dict_to_etree_rec(content[content.keys()[0]], tree)
         return tree
 
     def _dict_to_etree_rec(self, content, tree):
+        """
+        Auxiliar function of _dict_to_etree_rec
+        """
         if type(content) == dict:
             for key, value in content.items():
                 e = ElementTree.Element(key)
@@ -80,15 +88,25 @@ class OpenSearchConverter(object):
         return XmlConverter().marshal(content)
 
     def unmarshal(self, content):
+        """
+        Produces an OpenSearchDescription object from an
+        OpenSearch XML
+        """
         e_tree = ElementTree.fromstring(content)
         return OpenSearchDescription(e_tree)
 
 
 class PlainConverter(object):
     def marshal(self, content):
+        """
+        Does nothing
+        """
         return content
 
     def unmarshal(self, content):
+        """
+        Returns content without modification
+        """
         return content
 
 Converters.register('application/xml', XmlConverter())
