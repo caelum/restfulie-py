@@ -2,8 +2,14 @@ from restfulie.resources import Resource
 from restfulie.links import Links
 
 class JsonResource(Resource):
+    """
+    This resource is returned when a JSON is unmarshalled.
+    """
 
     def __init__(self, dict_):
+        """
+        JsonResource attributes can be accessed with 'dot'.
+        """
         links = self._parse_links(dict_)
         self._links = Links(links)
 
@@ -16,6 +22,9 @@ class JsonResource(Resource):
                 setattr(self, key, d)
 
     def _find_dicts_in_dict(self, structure):
+        """
+        Get all dictionaries on a structure and returns a list of it.
+        """
         dicts = []
         if isinstance(structure, dict):
             dicts.append(structure)
@@ -24,6 +33,9 @@ class JsonResource(Resource):
         return dicts
 
     def _parse_links(self, dict_):
+        """
+        Find links on JSON dictionary.
+        """
         for d in self._find_dicts_in_dict(dict_):
             if 'link' in d:
                 return d['link']
@@ -34,4 +46,3 @@ class JsonResource(Resource):
 
     def link(self, rel):
         return self.links().get(rel)
-

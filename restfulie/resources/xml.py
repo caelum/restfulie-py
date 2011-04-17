@@ -2,6 +2,9 @@ from restfulie.resources import Resource
 from restfulie.links import Links
 
 class XMLResource(Resource):
+    """
+    This resource is returned when a XML is unmarshalled.
+    """
 
     def __init__ (self, element_tree):
         self.element_tree = element_tree
@@ -9,6 +12,9 @@ class XMLResource(Resource):
         self._enhance_element_tree()
 
     def _enhance_element_tree(self):
+        """
+        Enables access to XMLResources attributes with 'dot'.
+        """
         setattr(self, "tag", self.element_tree.tag)
 
         for root_child in list(self.element_tree):
@@ -24,6 +30,9 @@ class XMLResource(Resource):
                     setattr(element, child.tag, element.find(child.tag))
 
     def _parse_links(self):
+        """
+        Find links in a ElementTree
+        """
         links = []
         for element in self.element_tree.getiterator('link'):
             d = {'href': element.attrib.get('href'),
@@ -39,4 +48,3 @@ class XMLResource(Resource):
 
     def link(self, rel):
         return self.links().get(rel)
-
