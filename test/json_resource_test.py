@@ -20,6 +20,7 @@ def test_json_parsing():
     resource = JsonResource(json.loads(test_json))
     links = resource.links()
 
+    print links.links
     assert len(links) == 2
     assert links.self.rel == "self"
     assert links.self.href == "http://www.caelum.com.br/orders/1"

@@ -1,7 +1,7 @@
 from converters import Converters
 import re
 
-from links import Links
+from links import Links, Link
 
 
 class Response(object):
@@ -46,12 +46,12 @@ class Response(object):
         """
         values = self.headers['link'].split(',')
         links = []
-        for link in values:
-            links.append(self._string_to_hash(link))
+        for link_string in values:
+            links.append(self._string_to_link(link_string))
 
         return links
 
-    def _string_to_hash(self, l):
+    def _string_to_link(self, l):
         """
         Parses a link header string to a dictionary
         """
@@ -62,7 +62,7 @@ class Response(object):
         tpe = (re.search('type=(.*)', rest) and
                re.search('type="(.*)"', rest).group(1))
 
-        return {'href': uri, 'rel': rel, 'type': tpe}
+        return Link(href=uri, rel=rel, content_type=tpe)
 
 
 class LazyResponse(object):

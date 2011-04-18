@@ -1,5 +1,5 @@
 from restfulie.resources import Resource
-from restfulie.links import Links
+from restfulie.links import Links, Link
 
 class JsonResource(Resource):
     """
@@ -38,7 +38,8 @@ class JsonResource(Resource):
         """
         for d in self._find_dicts_in_dict(dict_):
             if 'link' in d:
-                return d['link']
+                return [Link(href=link.get('href'), rel=link.get('rel'), content_type=link.get('type')) for link in d['link']]
+
         return []
 
     def links(self):

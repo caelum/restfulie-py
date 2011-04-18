@@ -1,5 +1,5 @@
 from restfulie.resources import Resource
-from restfulie.links import Links
+from restfulie.links import Links, Link
 
 class XMLResource(Resource):
     """
@@ -35,11 +35,11 @@ class XMLResource(Resource):
         """
         links = []
         for element in self.element_tree.getiterator('link'):
-            d = {'href': element.attrib.get('href'),
-                 'rel': element.attrib.get('rel'),
-                 'type': element.attrib.get('type') or 'application/xml'}
+            link = Link(href=element.attrib.get('href'),
+                        rel=element.attrib.get('rel'),
+                        content_type=element.attrib.get('type') or 'application/xml')
 
-            links.append(d)
+            links.append(link)
 
         return links
 

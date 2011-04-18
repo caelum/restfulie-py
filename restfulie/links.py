@@ -6,17 +6,17 @@ class Link(object):
     Link represents generic link. You can follow it.
     """
 
-    def __init__(self, link):
-        self.href = link.get('href')
-        self.rel = link.get('rel')
-        self.type = link.get('type')
+    def __init__(self, href, rel, content_type='application/xml'):
+        self.href = href
+        self.rel = rel
+        self.content_type = content_type
 
     def follow(self):
         """
         Return a DSL object with the Content-Type
         set.
         """
-        return dsl.Dsl(self.href).as_(self.type)
+        return dsl.Dsl(self.href).as_(self.content_type)
 
 
 class Links:
@@ -31,9 +31,8 @@ class Links:
         """
         self.links = {}
         for link in links:
-            l = Link(link)
-            self.links[l.rel] = l
-            setattr(self, l.rel, l)
+            self.links[link.rel] = link
+            setattr(self, link.rel, link)
 
     def get(self, rel):
         """
