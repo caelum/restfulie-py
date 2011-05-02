@@ -12,7 +12,7 @@ class RequestProcessor(object):
 
 class AuthenticationProcessor(RequestProcessor):
     """
-    Processor responsible for make HTTP simple auth
+    Processor responsible for making HTTP simple auth
     """
     def execute(self, chain, request, env={}):
         if request.credentials is not None:
@@ -30,8 +30,8 @@ class AuthenticationProcessor(RequestProcessor):
 
 class ExecuteRequestProcessor(RequestProcessor):
     """
-    Processor responsible to get the body from environment and
-    make a request with it.
+    Processor responsible for getting the body from environment and
+    making a request with it.
     """
     def __init__(self):
         self.http = httplib2.Http()
@@ -53,7 +53,7 @@ class ExecuteRequestProcessor(RequestProcessor):
 
 class PayloadMarshallingProcessor(RequestProcessor):
     """
-    Processor responsible for marshal the payload in environment.
+    Processor responsible for marshalling the payload in environment.
     """
     def execute(self, chain, request, env={}):
         if "payload" in env:

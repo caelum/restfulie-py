@@ -1,7 +1,6 @@
 import json
 from xml.etree import ElementTree
 from opensearch import OpenSearchDescription
-from links import Links
 from resources.xml import XMLResource
 from resources.json import JsonResource
 
