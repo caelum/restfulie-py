@@ -36,7 +36,7 @@ class Response(object):
 
     def link(self, rel):
         """
-        Get a link from with 'rel' from the header
+        Get a link with 'rel' from header
         """
         return self.links().get(rel)
 
