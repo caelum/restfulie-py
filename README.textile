@@ -61,6 +61,14 @@ On project root, run:
 
 @$ python setup.py install@
 
+If you like to install from pip, run:
+
+@pip install restfulie@
+
+Or with easy_install:
+
+@easy_install restfulie@
+
 
 h2. Installing Restfulie for development
 
