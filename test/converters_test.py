@@ -60,13 +60,16 @@ class xml_marshaller_test:
 
     def should_unmarshal(self):
         xml = XmlConverter()
-        result = xml.unmarshal('<html><img><link href="http://google.com" ' +
+        result = xml.unmarshal('<html><div><link href="http://google.com" ' +
                                'rel="alternative" type="application/xml">' +
                                'A Link</link><link href="http://yahoo.com" ' +
-                               'rel="self" type="application/xml" /></img>' +
+                               'rel="self" type="application/xml" /></div>' +
+                               '<div>Hello World</div>' +
                                '</html>')
+
         assert result.tag == 'html'
-        assert result.img.tag == 'img'
-        assert result.img.link[0].text == 'A Link'
-        assert len(result.img.link) == 2
+        assert len(result.div) == 2
+        assert result.div[0].tag == 'div'
+        assert result.div[0].link[0].text == 'A Link'
+        assert len(result.div[0].link) == 2
         assert len(result.links()) == 2

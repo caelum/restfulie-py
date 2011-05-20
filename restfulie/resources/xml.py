@@ -18,7 +18,13 @@ class XMLResource(Resource):
         setattr(self, "tag", self.element_tree.tag)
 
         for root_child in list(self.element_tree):
-            setattr(self, root_child.tag, root_child)
+            if root_child.tag != 'link':
+                if len(self.element_tree.findall(root_child.tag)) > 1:
+                    setattr(self, root_child.tag, self.element_tree.findall(root_child.tag))
+                elif len(list(root_child)) == 0:
+                    setattr(self, root_child.tag, root_child.text)
+                else:
+                    setattr(self, root_child.tag, self.element_tree.find(root_child.tag))
 
         for element in self.element_tree.getiterator():
             for child in list(element):
