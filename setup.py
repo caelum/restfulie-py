@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='restfulie',
       version='0.9.2',
@@ -23,5 +23,8 @@ setup(name='restfulie',
       ],
       test_suite = "nose.collector",
       install_requires= ['httplib2>=0.6.0'],
-      packages=['restfulie'])
+      packages=find_packages(),
+      include_package_data=True,
+      )
+
 
