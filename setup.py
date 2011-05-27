@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='restfulie',
-      version='0.9.0',
+      version='0.9.2',
       description='Writing hypermedia aware resource based clients and servers',
       author=' ',
       author_email=' ',
