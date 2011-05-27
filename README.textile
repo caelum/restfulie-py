@@ -1,5 +1,11 @@
 h1. restfulie-py
 
+"One minute tutorial":https://github.com/caelum/restfulie-py/wiki/Python-One-Minute-Tutorial
+"Hypermedia Implementation":https://github.com/caelum/restfulie-py/wiki/Hypermedia-Implementation
+"Client":https://github.com/caelum/restfulie-py/wiki/Python-Client
+"Examples":https://github.com/caelum/restfulie-py/wiki/python-examples
+"Hypermedia Examples":https://github.com/caelum/restfulie-py/wiki/Python-Hypermedia-Clients
+"OpenSearch Examples":https://github.com/caelum/restfulie-py/wiki/Python-OpenSearch
 
 h2. Introduction
 
@@ -54,6 +60,14 @@ h2. Installing Restfulie
 On project root, run:
 
 @$ python setup.py install@
+
+If you like to install from pip, run:
+
+@pip install restfulie@
+
+Or with easy_install:
+
+@easy_install restfulie@
 
 
 h2. Installing Restfulie for development
