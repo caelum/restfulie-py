@@ -16,7 +16,7 @@ We are ready to go, hypermedia supported:
 from restfulie import Restfulie
 
 # using restfulie as an http api:
->>> response = Restfulie.accepts('application/xml').at('http://localhost:8080/items').get()
+>>> response = Restfulie.at('http://localhost:8080/items').accepts('application/xml').get()
 >>> print response.body
 <items>
     <item>
