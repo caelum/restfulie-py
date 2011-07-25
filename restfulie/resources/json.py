@@ -11,6 +11,7 @@ class JsonResource(Resource):
         JsonResource attributes can be accessed with 'dot'.
         """
         links = self._parse_links(dict_)
+        self._dict = dict_
         self._links = Links(links)
 
         for key, value in dict_.items():
@@ -47,3 +48,6 @@ class JsonResource(Resource):
 
     def link(self, rel):
         return self.links().get(rel)
+        
+    def __len__(self):
+        return len(self._dict)        
