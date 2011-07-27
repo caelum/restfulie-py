@@ -6,6 +6,7 @@ from restfulie.resources.xml import XMLResource
 def test_xml_parsing():
 
     test_xml = """
+      <xml>
         <order>
           <product>rails training</product>
           <description>rest training</description>
@@ -15,6 +16,7 @@ def test_xml_parsing():
             <link href="http://www.caelum.com.br/orders/1/payment" rel="payment"/>
           </links>
         </order>
+      </xml>
     """
 
     e = ElementTree.fromstring(test_xml)
@@ -31,11 +33,13 @@ def test_xml_parsing():
 def test_xml_without_links():
 
     test_xml = """
+      <xml>
         <order>
           <product>rails training</product>
           <description>rest training</description>
           <price>512.45</price>
         </order>
+      </xml>
     """
 
     e = ElementTree.fromstring(test_xml)
